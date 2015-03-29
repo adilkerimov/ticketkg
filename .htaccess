@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|robots\.txt|img|styles|js)
+RewriteRule ^(.*)$ /index.php?/$1 [L]
+DefaultLanguage ru
+AddDefaultCharset utf-8
+php_value default_charset "utf-8"

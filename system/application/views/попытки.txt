@@ -1,0 +1,34 @@
+<?php 
+    	if (!$this->ion_auth->logged_in())
+		{  
+		}
+        else
+        {
+            $user = $this->ion_auth->user()->row();
+            $to_get = $user->id;
+            $data = array();
+            $data['user_id'] = $to_get;
+            $data['rozygrysh'] = $rozygr['id_rozygr'];
+            $count_account = $this->user_click_model->get_click_count($data);
+            //echo $count_account['click_count'];
+            if ($count_account)
+            {
+                $remain = $rozygr['max_count'] - $count_account['click_count'];
+                if($remain <= 0)
+                {
+                  echo "<div style='border: 1px solid #80A7A6; border-top: none; color: #E84F54; padding: 2px 0 0 25px; font-weight: bold; float: right; width: 155px; height: 23px; background-color: #FAC7C8; position: absolute; margin: -10px 0 0 102px;'><span style='color: #C11115 ;'>Приходите завтра</span></div>";  
+                }
+                else
+                {
+                  echo "<div style='border: 1px solid #80A7A6; border-top: none; color: #E84F54; padding: 2px 0 0 10px; font-weight: bold; float: right; width: 155px; height: 23px; background-color: #EAF4F1; position: absolute; margin: -10px 0 0 102px;'><span style='color: #137171 ;'>Попыток осталось: </span>".$remain."</div>";  
+                }
+            }
+            else
+            {
+                $remain = $rozygr['max_count'];
+                echo "<div style='border: 1px solid #80A7A6; border-top: none; color: #E84F54; padding: 2px 0 0 10px; font-weight: bold; float: right; width: 155px; height: 23px; background-color: #EAF4F1; position: absolute; margin: -10px 0 0 102px;'><span style='color: #137171 ;'>Попыток осталось: </span>".$remain."</div>";
+            }
+            
+        }
+        
+     ?>
