@@ -2,20 +2,30 @@
 
 
 .well {background: #EEE; padding: 30px 0; text-align: center;}
-#logo .well, #nav,
-#header-content .well {height: 75px;}
+
+
+#logo .well, #nav, #header-content .well {height: 90px;}
 #featured .product .well {height: 250px;}
 #sidebar .well{height: 520px;}
 
 #footer .menu-footer .well {height: 300px;}
 
-#logo, #header-content, #nav,
-#featured .product, #sidebar,
-#footer .menu-footer {margin-bottom: 10px;}
+#logo, #header-content, #nav, #featured .product, #sidebar, #footer .menu-footer {margin-bottom: 10px;}
+.menu-footer .well{text-align: left; padding-left: 10px; font-size: 11px}
+#header .well{margin-bottom: 0;}
 
+#navigation{padding-bottom: 20px}
+#upper_bg{background: #CB3032; position: absolute; padding: 0; margin: 0; width: 100%; height: 140px}
 
-
-
+.nav-pills li{background: #3C3C3C;}
+.nav-pills li a{ color: #fff}
+.nav-pills li:hover{background: #E1E1E1;}
+.nav-pills li a:hover{background: none; color: #000}
+.nav-pills li:first-child{border-top-left-radius: 5px}
+.nav-pills li:last-child{border-top-right-radius: 5px}
+.nav-pills li.active{background: #E1E1E1;}
+.nav-pills li.active a{background:none; color: #000;}
+.nav-pills li.active a:hover{background: #E1E1E1; color: #000}
 
 
 

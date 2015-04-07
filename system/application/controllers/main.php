@@ -16,7 +16,8 @@ class Main extends Controller {
 	{
        $data['items'] = $this->items_model->get_items();
        $data['menu_first'] = $this->items_model->get_menu_first();    
-       $name = 'index';
+       //$name = 'index';
+       $name = 'main_BACKUP';
        $this->display_lib->main($data,$name);     
 	}
     

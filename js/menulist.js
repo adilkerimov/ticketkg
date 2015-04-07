@@ -44,7 +44,7 @@ var count = i + 1;
 $("#counter").val(count);
 })
 
-
+/*
 // берем все необходимые нам картинки
 var $img = $('img.imagess');
              
@@ -66,7 +66,7 @@ $img.each(function() {
     $(this).attr('src', '');
     $(this).attr('src', src);
 });
-
+*/
 })
 
 
