@@ -8,6 +8,7 @@
  <link href="<?=base_url();?>styles/style.css" rel="stylesheet"/>
  <link href="<?=base_url();?>styles/owl-carousel/owl.carousel.css" rel="stylesheet"/>
  <link href="<?=base_url();?>styles/owl-carousel/owl.theme.css" rel="stylesheet"/> 
+ <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
  </head>
  <body>
 <div id="upper_bg"></div>
@@ -36,28 +37,39 @@
 		<div id="featured" class="col-md-9">
 			<div class="row">
 				<div id="owl-demo" class="owl-carousel col-sm-6 col-md-4 col-lg-3">
-				    <div class="item"><img src="img/assets/1.png"><h4>1</h4></div>
-				    <div class="item"><img src="img/assets/2.png"><h4>2</h4></div>
-				    <div class="item"><img src="img/assets/3.png"><h4>3</h4></div>
-				    <div class="item"><img src="img/assets/4.png"><h4>4</h4></div>
-				    <div class="item"><img src="img/assets/1.png"><h4>5</h4></div>
-				    <div class="item"><img src="img/assets/2.png"><h4>6</h4></div>
-				    <div class="item"><img src="img/assets/3.png"><h4>7</h4></div>
-				    <div class="item"><img src="img/assets/4.png"><h4>8</h4></div>
-				    <div class="item"><img src="img/assets/1.png"><h4>9</h4></div>
-				    <div class="item"><img src="img/assets/2.png"><h4>10</h4></div>
-				    <div class="item"><img src="img/assets/3.png"><h4>11</h4></div>
-				    <div class="item"><img src="img/assets/4.png"><h4>12</h4></div>
+				    <div class="item"><img src="img/assets/11.jpg"></div>
+				    <div class="item"><img src="img/assets/22.jpg"></div>
+				    <div class="item"><img src="img/assets/33.jpg"></div>
 				</div>
-				<div id="next" style="width:20px; height:20px; background:#ccc; float:left; cursor:pointer;">999</div>
+				<div class="customNavigation">
+					<a class="btn prev" id="prev"><svg class="prev_svg" height="35px" width="30px" id="Layer_1" style="enable-background:new 0 0 35 35;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="352,115.4 331.3,96 160,256 331.3,416 352,396.7 201.5,256 "/></svg></a>
+					<a class="btn next" id="next"><svg class="next_svg" height="35px" width="30px" id="Layer_1" style="enable-background:new 0 0 35 35;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/></svg></a>
+				</div>
 			</div>
-			<div class="row">
+			<div class="row padding-top">
 				<?php foreach($items as $item):?>
-				<div class="product col-sm-6 col-md-4 col-lg-3"><div class="well"><ins>Заголовок</ins>: <?=$item['item_name'];?><br /><ins>Описание</ins>: <?=$item['item_descript'];?><br /><ins>Продолжительность</ins>: <?=$item['duration'];?><br /><ins>Организатор</ins>: <?=$item['organizer'];?><br /><img width="50" src="<?=base_url();?>img/items/<?=$item['item_img'];?>" /></div></div>
+				<div class="product col-sm-6 col-md-4 col-lg-3"><div class="panel panel-default"><div class="panel-heading"></div><div class="panel-body"><img class="item_img" src="<?=base_url();?>img/items/<?=$item['item_img'];?>" /></div><div class="panel-footer"><?=$item['item_name'];?><br>Театр оперы и балета</div></div></div>
                 <?php endforeach; ?>
 			</div>
 		</div>
-		<div id="sidebar" class="col-md-3"><div class="well">3<br/>#sidebar</div></div>
+		<div id="sidebar" class="col-md-3">
+			<div class="well">
+				<div class="padding_in">
+				<ul class="list-group">
+					<li class="list-group-item"><span class="badge">14</span><a href="#">ТЕАТРЫ</a></li>
+					<li class="list-group-item"><span class="badge">5</span><a href="#">ЦИРКИ</a></li>
+					<li class="list-group-item"><span class="badge">1</span><a href="">СПОРТИВНЫЕ КОМПЛЕКСЫ</a></li>
+					<li class="list-group-item"><span class="badge">8</span><a href="">КОНЦЕРТНЫЕ ЗАЛЫ</a></li>
+					<li class="list-group-item"><span class="badge">2</span><a href="">КЛУБЫ</a></li>
+					<li class="list-group-item"><span class="badge">7</span><a href="">КИНОТЕАТРЫ</a></li>
+					<li class="list-group-item"><span class="badge">4</span><a href="">ДОМА КУЛЬТУРЫ</a></li>
+					<li class="list-group-item"><span class="badge">3</span><a href="">ВЫСТАВОЧНЫЕ ЦЕНТРЫ</a></li>
+					<li class="list-group-item"><span class="badge">1</span><a href="">МУЗЕИ</a></li>
+					<li class="list-group-item"><span class="badge">0</span><a href="">ДРУГОЕ</a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="footer">
 		<div class="footer-top row">
@@ -108,7 +120,8 @@ office@ticket.kg</div></div>
     
     <script>
     $(document).ready(function() {
-      $("#owl-demo").owlCarousel({
+ 		var owl = $("#owl-demo");
+      owl.owlCarousel({
       
       baseClass : "owl-carousel",
       theme : "owl-theme",
@@ -123,12 +136,13 @@ office@ticket.kg</div></div>
       });
 
       // Custom Navigation Events
+
       $("#next").click(function(){
-        owl.trigger('next.owl.carousel');
+        owl.trigger('owl.next');
       })
-      //$("#prev").click(function(){
-      //  owl.trigger('owl.prev');
-      //})
+      $("#prev").click(function(){
+        owl.trigger('owl.prev');
+      })
      }); 
      
 

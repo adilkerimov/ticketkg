@@ -21,8 +21,64 @@ class Main extends Controller {
        $this->display_lib->main($data,$name);     
 	}
     
-    public function catalog($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '')
+    public function view($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '')
 	{  
+         if($page_id4)
+         {
+         redirect (base_url());
+         }
+         elseif($page_id3)
+         {
+         $check3 = $this->items_model->get_item($page_id3);
+         if($check3){
+         $data['main_info'] = $check3;
+         $data['page_id'] = $page_id;
+         $data['page_id2'] = $page_id2;
+         $data['page_id3'] = $page_id3;
+         $name = 'item';
+         $this->display_lib->inception($data,$name);
+         }
+         else{
+         //redirect (base_url());
+         }
+         }
+         elseif($page_id2)
+         {
+         $check2 = $this->category_model->get_one_category($page_id2);
+         if($check2){
+         $second_menu = $this->items_model->get_menu_link($page_id2);
+         $data['items'] = $this->items_model->get_items_second($second_menu['id_menu']);
+         $data['menu_first'] = $this->items_model->get_menu_first();
+         $name = 'index';
+         $this->display_lib->main($data,$name);  
+         }
+         else{
+         redirect (base_url());
+         }
+         }
+         elseif($page_id)
+         {
+         $check = $this->category_model->get_one_category($page_id);
+         if($check){
+         $first_menu = $this->items_model->get_menu_link($page_id);
+         $data['items'] = $this->items_model->get_items_first($first_menu['id_menu']);
+         $data['menu_first'] = $this->items_model->get_menu_first();
+         $name = 'index';
+         $this->display_lib->main($data,$name);
+         //print_r($first_menu);  
+         }
+         else{
+         redirect (base_url());
+         }
+         }
+         else
+         {
+         redirect (base_url());
+         }
+	}    
+
+  public function catalog($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '')
+  {  
          if($page_id4)
          {
          redirect (base_url());
@@ -75,7 +131,7 @@ class Main extends Controller {
          redirect (base_url());
          }
  
-	}    
+  }    
     
     
     
