@@ -58,7 +58,7 @@ $(document).ready(function() {
     
     // Выход AJAX
     $(document).on("click",'#logout',function(){
-        var conf="Вы действительно хотите войти?";
+        var conf="Вы действительно хотите выйти?";
         var id_user = $('#identity').val();
         var pass = $('#password').val();
         
@@ -69,6 +69,18 @@ $(document).ready(function() {
 				});
  		 });	
     });
+
+//Покупка на главной странице
+  $(document).on("click",'.day_li',function(){
+        //e.preventDefault();
+    var id = $(this).attr('id');
+    $('#sidebar .nav li').removeClass('active');
+    $(this).addClass('active');
+    $('.sidebar_date').addClass('hidden');
+    $('#side' + id).removeClass('hidden');
+    
+
+  });
 });
 
 

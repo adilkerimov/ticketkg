@@ -48,7 +48,8 @@
 			</div>
 			<div class="row padding-top">
 				<?php foreach($items as $item):?>
-				<div class="product col-sm-6 col-md-4 col-lg-3"><div class="panel panel-default"><div class="panel-heading"></div><div class="panel-body"><img class="item_img" src="<?=base_url();?>img/items/<?=$item['item_img'];?>" /></div><div class="panel-footer"><?=$item['item_name'];?><br>Театр оперы и балета</div></div></div>
+
+				<div class="product col-sm-6 col-md-4 col-lg-3"><div class="panel panel-default"><div class="panel-heading"></div><div class="panel-body"><img class="item_img" src="<?=base_url();?>img/items/<?=$item['item_img'];?>" /></div><div class="panel-footer"><a href="<?=base_url();?>view/<?php $s_inst = $this->items_model->get_menu_by_id($item['id_category']); echo $s_inst['link'];?>/<?php $f_inst = $this->items_model->get_menu_by_id($item['id_second_menu']); echo $f_inst['link'];?>/<?=$item['id_item'];?>"><?=$item['item_name'];?></a><br>Театр оперы и балета</div></div></div>
                 <?php endforeach; ?>
 			</div>
 		</div>

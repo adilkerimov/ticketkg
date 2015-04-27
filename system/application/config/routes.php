@@ -47,6 +47,7 @@ $route['view/(:any)'] = 'main/view/$1';
 
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
+$route['forgot_password'] = 'auth/forgot_password';
 $route['registration'] = 'auth/create_user';
 $route['login_ajax'] = 'auth/login_ajax';
 
@@ -63,8 +64,8 @@ $route['partners'] = 'pages/partners';
 $route['addcompany'] = 'pages/addcompany';
 $route['donecompany'] = 'pages/donecompany';
 $route['contact'] = 'pages/contact';
-$route['userinfo'] = 'pages/userinfo';
-$route['userprizes'] = 'pages/userprizes';
+$route['user_info'] = 'pages/user_info';
+$route['user_account'] = 'pages/user_account';
 $route['withdrawal'] = 'pages/withdrawal';
 $route['howtowin'] = 'pages/howtowin';
 $route['journal'] = 'pages/journal';

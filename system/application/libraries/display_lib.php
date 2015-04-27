@@ -20,11 +20,11 @@ public function inception($data,$name)
 public function main($data,$name)
 {
     $CI =& get_instance ();
-    //$CI->load->view('preheader_view');
-    //$CI->load->view('header_view');
-    //$CI->load->view('navigation_view');
+    $CI->load->view('preheader_view');
+    $CI->load->view('header_view');
+    $CI->load->view('navigation_view');
     $CI->load->view($name.'_view',$data);
-    //$CI->load->view('footer_view');      
+    $CI->load->view('footer_view');      
 }
 public function maina($data,$name)
 {

@@ -1,16 +1,18 @@
 @charset "utf-8";
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=latin,cyrillic);
-
+body{background: #F7F7F7;}
+h5{ color: #797979;}
+h1,h2{font-family: 'Roboto Condensed', sans-serif;}
 a{color: #4F76BE;}
 a:hover{color: #CB3032;}
 .well {background: #EEE; padding: 30px 0; text-align: center;}
-
+.hidden{display: none;}
 
 #logo .well, #nav, #header-content .well {height: 90px;}
-#featured .product .well, .product .panel {height: 300px;}
-#sidebar .well{height: auto; background:url(../img/pattern6.jpg); padding: 2px 0; margin: 0}
+#featured .product .well, .product .panel {height: 300px; border: 1px solid #C6C6C6;}
+#sidebar .well{height: auto; background:url(../img/pattern6.jpg); padding: 2px 0; margin: 0; border: 1px solid #C6C6C6;}
 
-#footer .menu-footer .well {height: 300px;}
+#footer .menu-footer .well {height: 200px; box-shadow: none;}
 
 #logo, #header-content, #nav, #featured .product, #sidebar, #footer .menu-footer {margin-bottom: 10px;}
 .menu-footer .well{text-align: left; padding-left: 10px; font-size: 11px}
@@ -36,14 +38,43 @@ a:hover{color: #CB3032;}
 .list-group-item:first-child{border-top: 0;}
 .list-group-item:last-child{border-bottom: 0;}
 
-.panel-heading{height: 30px; padding-top: 5px;}
-.panel-body{height: 200px; overflow: hidden; padding: 0}
+/* Panel */
+.panel-heading{height: 30px; padding-top: 5px; font-size: 12px}
+.panel-body{height: 200px; overflow: hidden; padding: 0;}
 .panel-footer{height: 70px; background: #CB3032; color: #fff;}
+.panel a{color:#fff; font-weight: 700; }
 
 .item_img{min-width: 100%;}
+.institution{padding: 15px 0;}
+.institution img{float: left; padding: 0; margin: 0; border: 0px solid #000;}
+.line{border-bottom:1px solid #C2C2C2;}
+.line_item{border-bottom:1px solid #C2C2C2; padding: 0; margin: 0}
+.btn{background: #CB3032; padding: 8px 15px; color:#fff;}
+
+#footer{background:#E7EDEE; }
+#footer .well{border:none; background:none; border: none;}
+.footer_list, .footer_list li a{padding: 0; margin: 0; line-height: 11px;}
+#footer a{text-decoration: underline;}
+.foot_well{background: #E7EDEE; padding: 15px 0 30px; text-align: left; font-size: 11px}
+.bg_footer_top{background:  #fff; /*url(../img/bg.png) #DADADA*/; height: 100px;}
 
 
+/* Sidebar dates */
+.sidebar_date{background:#fff; height: 400px }
+.nav-tabs li a:hover{background: none;}
+.img_cal{background: url(../img/calendar.png); width: 80px; height: 100px}
+.img_cal_in{padding: 21px 3px 3px 3px; text-align: center;}
+.c_title{font-size: 16px}
+.c_title h2{display: inline; padding: 0; margin:0;}
+.c_title span{font-size: 16px; color: #CD3133}
+.c_month{}
+.c_time{padding-top:2px;}
+.repertoir{padding:10px 0 10px 0; height: 120px;}
 
+.seat{background: #AAAAAB; padding: 3px; margin: 2px; height: 26px; width: 26px; border-radius: 5px; float: left; text-align: center;}
+.seat:hover{background: #E1E1E1; cursor: pointer;}
+
+/* Navigation */
 .customNavigation{position: absolute; height: 37px; width: 100%; top: 80px; left: -2px;}
 .prev,.next{
     width: 35px;
@@ -57,8 +88,8 @@ a:hover{color: #CB3032;}
 .prev{float: left;}
 .next{float: right;}
 
-.prev svg{margin: -7px 0 0 -12px}
-.next svg{margin: -7px 0 0 -9px}
+.prev svg{margin: -8px 0 0 -14px}
+.next svg{margin: -8px 0 0 -11px}
 
 
 

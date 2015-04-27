@@ -6,7 +6,7 @@ class Main extends Controller {
 	{
 		parent::__construct();
 		$this->load->model('category_model');
-        $this->load->model('user_click_model'); 
+        $this->load->model('comments_model'); 
         $this->load->model('items_model');
         $this->load->model('share_model');
                
@@ -17,29 +17,52 @@ class Main extends Controller {
        $data['items'] = $this->items_model->get_items();
        $data['menu_first'] = $this->items_model->get_menu_first();    
        //$name = 'index';
-       $name = 'main_BACKUP';
+       $name = 'index';
        $this->display_lib->main($data,$name);     
 	}
     
-    public function view($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '')
+    public function view($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '',$page_id5 = '')
 	{  
-         if($page_id4)
+         if($page_id5)
          {
          redirect (base_url());
+         }
+         elseif($page_id4)
+         {
+         $check4 = $this->items_model->get_tickets($page_id4);
+         $check3 = $this->items_model->get_item($page_id3);
+         if($check4){
+         $data['acts'] = $this->items_model->get_acts_in($page_id3);
+         $data['comments'] = $this->items_model->get_comments($page_id3);
+         $data['items_act'] = $this->items_model->get_items_act($page_id3);
+         $data['main_info'] = $check3;
+         $data['tickets'] = $check4;
+         $data['page_id'] = $page_id;
+         $data['page_id2'] = $page_id2;
+         $data['page_id3'] = $page_id3;
+         $name = 'seats';
+         $this->display_lib->main($data,$name);
+         }
+         else{
+         redirect (base_url());
+         }
          }
          elseif($page_id3)
          {
          $check3 = $this->items_model->get_item($page_id3);
          if($check3){
+         $data['acts'] = $this->items_model->get_acts_in($page_id3);
+         $data['comments'] = $this->items_model->get_comments($page_id3);
+         $data['items_act'] = $this->items_model->get_items_act($page_id3);
          $data['main_info'] = $check3;
          $data['page_id'] = $page_id;
          $data['page_id2'] = $page_id2;
          $data['page_id3'] = $page_id3;
          $name = 'item';
-         $this->display_lib->inception($data,$name);
+         $this->display_lib->main($data,$name);
          }
          else{
-         //redirect (base_url());
+         redirect (base_url());
          }
          }
          elseif($page_id2)
@@ -49,7 +72,7 @@ class Main extends Controller {
          $second_menu = $this->items_model->get_menu_link($page_id2);
          $data['items'] = $this->items_model->get_items_second($second_menu['id_menu']);
          $data['menu_first'] = $this->items_model->get_menu_first();
-         $name = 'index';
+         $name = 'institution';
          $this->display_lib->main($data,$name);  
          }
          else{
@@ -63,7 +86,7 @@ class Main extends Controller {
          $first_menu = $this->items_model->get_menu_link($page_id);
          $data['items'] = $this->items_model->get_items_first($first_menu['id_menu']);
          $data['menu_first'] = $this->items_model->get_menu_first();
-         $name = 'index';
+         $name = 'institution';
          $this->display_lib->main($data,$name);
          //print_r($first_menu);  
          }
@@ -77,7 +100,39 @@ class Main extends Controller {
          }
 	}    
 
-  public function catalog($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '')
+    public function comment()
+    {  
+         if($_POST){
+         if (!$this->ion_auth->logged_in())
+         {
+         redirect(base_url());
+         }
+         else{
+         $this->form_validation->set_rules($this->comments_model->add_rules); 
+         $data['link'] = $this->input->post('link');
+         if($this->form_validation->run() == TRUE){   
+         //$data['comments'] = $this->comments_model->get_comments($page_id3);
+         $this->comments_model->add_comment();
+         $data['info'] = 'Комментарий добавлен.';
+         $name = 'info';
+         $this->display_lib->main($data,$name);
+         }
+         else{
+         $data['info'] = 'Вышла ошибка.';
+         $name = 'info';
+         $this->display_lib->main($data,$name);   
+         }
+         }
+         }
+         else{
+         redirect (base_url());
+         }
+
+    } 
+
+
+
+  public function catalog($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '',$page_id5 = '')
   {  
          if($page_id4)
          {

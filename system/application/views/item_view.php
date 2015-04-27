@@ -1,149 +1,86 @@
-<!DOCTYPE html>
-<html>
-  <head>
- <title>Билеты в театры и на концерты Бишкека</title>
- 	<!-- Bootstrap -->
- <link href="<?=base_url();?>styles/reset.css" rel="stylesheet"/>
- <link href="<?=base_url();?>styles/bootstrap.min.css" rel="stylesheet"/>
- <link href="<?=base_url();?>styles/style.css" rel="stylesheet"/>
- <link href="<?=base_url();?>styles/owl-carousel/owl.carousel.css" rel="stylesheet"/>
- <link href="<?=base_url();?>styles/owl-carousel/owl.theme.css" rel="stylesheet"/> 
- <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
- </head>
- <body>
-<div id="upper_bg"></div>
-<div id="wrapper" class="container">
-	<div id="header" class="row">
-		<div id="logo" class="col-md-3"><div class="well"><a href="<?=base_url();?>">Ticket.kg</a></div></div>
-		<div id="header-content" class="col-md-9"><div class="well">9<br/>header-content</div></div>
-	</div>
-	<div id="navigation" class="row">
-		<div class="product col-sm-12 col-md-12 col-lg-12">
-			<div class="nav">
-	            <ul class="nav nav-pills nav-justified">
-					<li class="active"><a href="#">ГЛАВНАЯ</a></li>
-					<li><a href="#">СПЕКТАКЛИ</a></li>
-					<li><a href="#">КОНЦЕРТЫ</a></li>
-					<li><a href="#">МЮЗИКЛЫ</a></li>
-					<li><a href="#">КЛАССИКА</a></li>
-					<li><a href="#">СПОРТ</a></li>
-					<li><a href="#">ФЕСТИВАЛИ</a></li>
-					<li><a href="#">ДЕТЯМ</a></li>
-	            </ul>
-        	</div>
-    	</div>
-	</div>
-	<div class="row"><a href="">Главная</a>-><a href=""><?=$page_id?></a>-><a href=""><?=$page_id2?></a>-><a href=""><?=$main_info['item_name']?></a></div>
-	<div class="row"><h1><?=$main_info['item_name']?></h1></div>
-	<div id="content" class="row">
-		<div id="featured" class="col-md-6">
-			<div class="row">
-				<img src="<?=base_url();?>img/items/<?=$main_info['item_img']?>">
-			</div>
-			<div class="row padding-top">
-
-			</div>
+	<div class="row">
+		<div class="col-md-12">
+			<?php 
+			$f_inst = $this->items_model->get_menu_link($page_id);
+			$s_inst = $this->items_model->get_menu_link($page_id2);
+			?>
+			<a href="<?=base_url();?>">Главная</a>&rarr;<a href="<?=base_url();?>view/<?=$page_id;?>"><?=$f_inst['menu'];?></a>&rarr;<a href="<?=base_url();?>view/<?=$page_id;?>/<?=$page_id2;?>"><?=$s_inst['menu'];?></a>&rarr;<a href="<?=base_url();?>view/<?=$page_id;?>/<?=$page_id2;?>/<?=$main_info['id_item']?>"><?=$main_info['item_name']?></a>
 		</div>
-		<div id="sidebar" class="col-md-6">
-			<div class="well">
-				<div class="padding_in">
-				<ul class="list-group">
-					<li class="list-group-item"><span class="badge">14</span><a href="#">ТЕАТРЫ</a></li>
-					<li class="list-group-item"><span class="badge">5</span><a href="#">ЦИРКИ</a></li>
-					<li class="list-group-item"><span class="badge">1</span><a href="">СПОРТИВНЫЕ КОМПЛЕКСЫ</a></li>
-					<li class="list-group-item"><span class="badge">8</span><a href="">КОНЦЕРТНЫЕ ЗАЛЫ</a></li>
-					<li class="list-group-item"><span class="badge">2</span><a href="">КЛУБЫ</a></li>
-					<li class="list-group-item"><span class="badge">7</span><a href="">КИНОТЕАТРЫ</a></li>
-					<li class="list-group-item"><span class="badge">4</span><a href="">ДОМА КУЛЬТУРЫ</a></li>
-					<li class="list-group-item"><span class="badge">3</span><a href="">ВЫСТАВОЧНЫЕ ЦЕНТРЫ</a></li>
-					<li class="list-group-item"><span class="badge">1</span><a href="">МУЗЕИ</a></li>
-					<li class="list-group-item"><span class="badge">0</span><a href="">ДРУГОЕ</a></li>
-				</ul>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h1><?=$main_info['item_name']?></h1>
+		</div>
+	</div>
+	<div id="content" class="row">
+		<div class="col-md-12">
+			<div id="featured" class="col-md-6">
+				<div class="row">
+					<img src="<?=base_url();?>img/items/<?=$main_info['item_img']?>">
+				</div>
+				<div class="row padding-top">
+				<p>Продолжительность: <?=$main_info['duration']?></p>
+				<p><?php foreach ($acts as $act):?>
+				<?php $human = $this->items_model->get_hum($act['id_act']); $role = $this->items_model->get_role($human['role']); echo $role['role'].": ".$human['human'];?>
+				<?php endforeach; ?>
+				</p>				
+				</div>
+			</div>
+			<div id="sidebar" class="col-sm-12 col-md-6 col-lg-6" style="padding:0">
+				<?php setlocale(LC_ALL, 'ru_RU.utf8','rus_RUS.utf8','Russian'); ?>
+				<div class="well">
+					<div class="padding_in">
+					<ul class="nav nav-tabs">
+						<li class="day_li active" id="1"><a><?php $date = '2015-04-06'; echo mb_strtoupper(strftime("%B", strtotime($date)));?></a></li>
+						<li class="day_li" id="2"><a>МАЙ</a></li>
+						<li class="day_li" id="3"><a>ИЮНЬ</a></li>
+					</ul>
+					<div id="side1" class="sidebar_date">
+						<?php foreach ($items_act as $i_act):?>
+						<div class="repertoir">
+						<?php $date1 = $i_act['date'];?>
+						<div class="col-sm-3 col-xs-3 col-md-3 col-lg-3"><div class="img_cal"><div class="img_cal_in"><div class="c_title"><h2><?=strftime("%d", strtotime($date1));?></h2>/<span><?=strftime("%a", strtotime($date1));?></span></div><div class="c_month"><?=strftime("%B", strtotime($date1));?></div><div class="c_time"><?=strftime("%H:%M", strtotime($date1));?></div></div></div></div>
+						<div class="col-sm-6 col-xs-6 col-md-5 col-lg-6"><?php $location = $this->items_model->get_location($i_act['location']);?><a href="<?=base_url();?>view/<?=$page_id;?>/<?=$page_id2;?>"><?=$location['company'];?></a></div>
+						<div class="col-sm-2 col-xs-2 col-md-2 col-lg-2"><a href="<?=base_url();?>view/<?=$page_id;?>/<?=$page_id2;?>/<?=$page_id3;?>/<?=$i_act['id_item_act']?>" class="btn">Купить билет</a></div>
+						</div>
+						<div class="line col-sm-12 col-xs-12 col-md-12 col-lg-12"></div>
+						<?php endforeach; ?>
+					</div>
+					<div id="side2" class="sidebar_date hidden">Тест2</div>
+					<div id="side3" class="sidebar_date hidden">Тест3</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="line col-sm-6  col-md-12 col-lg-12">
+	</div>
 	<div class="row">
-		<h2>Описание</h2>
-		<h2>Отзывы</h2>
-	</div>
-	<div id="footer">
-		<div class="footer-top row">
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">
-<ul>
-<li><a href="#">Онас</a></li><br />
-<li><a href="#">О компании</a></li><br />
-<li><a href="#">Адреса наших касс</a></li><br />
-<li><a href="#">Адреса офисов</a></li><br />
-<li><a href="#">Лого Ticket.kg</a></li><br />
-<li><a href="#">Пресс-центр</a></li><br />
-<li><a href="#">Реквизиты</a></li><br />
-<li><a href="#">Вакансии</a></li></div></div>
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">Проекты<br />
-Электронный билет<br />
-Программа «Карта Зрителя»<br />
-Подарочная карта<br />
-Благотворительность<br />
-Промо-код</div></div>
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">Помощь<br />
-Изменения в репертуаре<br />
-Часто задаваемые вопросы<br />
-Как заказать билеты<br />
-Карта сайта</div></div>
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">Правила использования<br />
-Пользовательское соглашение<br />
-Публичная оферта<br />
-Политика конфиденциальности</div></div>
-			<div class="menu-footer col-sm-6 col-md-4"><div class="well">Контакты<br />
-+996 (312) 99-77-99<br />
-Ибраимова, д. 103, Бишкек, 720000 (остановка «ЦУМ»)</div></div>
-		</div>
-		<div class="footer-bottom row">
-			<div class="copyrights col-sm-6 col-md-6"><div class="well">© ОсОО «TICKET», 2015
-Ибраимова, д. 103, Бишкек, 720000
-Телефон: +996 (312) 99-77-99
-office@ticket.kg</div></div>
-			<div class="social-icons col-sm-6 col-md-6"><div class="well">6<br>.social-icons</div></div>
+		<div class="col-md-12">
+			<h2>Описание</h2>
+			<p><?=$main_info['text']?></p>
 		</div>
 	</div>
-</div>
-
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="<?=base_url();?>js/bootstrap.min.js"></script>
-    <script src="<?=base_url();?>js/owl-carousel/owl.carousel.js"></script>
-    <script type="text/javascript" src="<?=base_url();?>js/menulist.js"></script>
-    <script language="javascript" src="<?=base_url();?>js/core.js" type="text/javascript"></script>
-    
-    <script>
-    $(document).ready(function() {
- 		var owl = $("#owl-demo");
-      owl.owlCarousel({
-      
-      baseClass : "owl-carousel",
-      theme : "owl-theme",
-        
-      //navigation : true,
-      slideSpeed : 300,
-      paginationSpeed : 400,
-      singleItem : true,
-      autoPlay : true,
-      stopOnHover : true
-
-      });
-
-      // Custom Navigation Events
-
-      $("#next").click(function(){
-        owl.trigger('owl.next');
-      })
-      $("#prev").click(function(){
-        owl.trigger('owl.prev');
-      })
-     }); 
-     
-
-   
-    </script>
-
-  </body>
-</html>
+	<div class="line col-sm-6 col-md-12 col-lg-12">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Отзывы</h2><br>
+			<?php foreach ($comments as $comment):?>
+			<?php $com_user = $this->items_model->get_user($comment['id_user']);?>
+			<h5><strong><?=$com_user['first_name']?></strong>&nbsp;&nbsp;&nbsp;<?=strftime("%d/%m/%Y", strtotime($comment['date']));?></h5>
+			<p><?=$comment['comment']?></p><br>
+			<?php endforeach;?>
+			<br>
+			<?php if(isset($info)){echo $info."<br><br>";}?>
+			
+			<form id="comment_form" action="<?=base_url()?>main/comment" method="post">
+			<input type="hidden" name="link" value="<?=base_url()?>view/<?=$page_id;?>/<?=$page_id2;?>/<?=$main_info['id_item']?>">
+			<input type="hidden" name="id_item" value="<?=$main_info['id_item']?>">
+			<textarea name="comment" rows="5" cols="60" placeholder="<?php if (!$this->ion_auth->logged_in()){echo 'Чтобы оставить комментарий, авторизируйтесь на сайте.';} else {echo 'Введите комментарий...';}?>"></textarea><br><br>
+			
+			<a href="javascript:{}" onclick="document.getElementById('comment_form').submit();" class="btn<?php if (!$this->ion_auth->logged_in()){echo ' disabled';} ?>">Комментировать</a>
+			</form>
+		</div>
+	</div>
+	</div>

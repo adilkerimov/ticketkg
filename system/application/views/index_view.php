@@ -1,91 +1,36 @@
-<!DOCTYPE html>
-<html>
-  <head>
- <title>Билеты в театры и на концерты Бишкека</title>
- 	<!-- Bootstrap -->
- <link href="<?=base_url();?>styles/reset.css" rel="stylesheet"/>
- <link href="<?=base_url();?>styles/bootstrap.min.css" rel="stylesheet"/>
- <link href="<?=base_url();?>styles/style.css" rel="stylesheet"/>
- </head>
- <body>
-<div id="wrapper" class="container">
-	<div id="header" class="row">
-		<div id="logo" class="col-md-3"><div class="well"><a href="<?=base_url();?>">Ticket.kg</a></div></div>
-		<div id="header-content" class="col-md-9"><div class="well">9<br/>header-content</div></div>
-	</div>
-	<div id="header" class="row">
-		<div class="product col-sm-12 col-md-12 col-lg-12"><div class="well">Навигация<br />
-            <ul class="menus">
-            <?php foreach($menu_first as $item):?>
-            <a href="<?=base_url();?>catalog/<?=$item['link'];?>"><li><?=$item['menu'];?><div class="table_block radius_under none" id="menu">
-            <table>
-            <tr><td></td><td>
-            <dl>
-            <?php $second_menu = $this->items_model->get_menu_second($item['id_menu']); ?>
-            <?php foreach($second_menu as $second):?>
-            <dt><a href="<?=base_url();?>catalog/<?=$item['link'];?>/<?=$second['link'];?>"><?=$second['menu'];?></a></dt>
-            <?php $third_menu = $this->items_model->get_menu_third($second['id_menu']); ?>
-            <?php foreach($third_menu as $third):?>
-            <dd><a href="<?=base_url();?>catalog/<?=$item['link'];?>/<?=$second['link'];?>/<?=$third['link'];?>"><?=$third['menu'];?></a></dd>
-            <?php endforeach; ?>
-            <?php endforeach; ?>
-            </dl>
-            </td></tr>
-            </table>
-            </div></li></a>
-            <?php endforeach; ?>
-            </ul>
-        </div></div>
-	</div>
 	<div id="content" class="row">
 		<div id="featured" class="col-md-9">
 			<div class="row">
+				<div id="owl-demo" class="owl-carousel col-sm-6 col-md-4 col-lg-3">
+				    <div class="item"><img src="<?=base_url();?>img/assets/11.jpg"></div>
+				    <div class="item"><img src="<?=base_url();?>img/assets/22.jpg"></div>
+				    <div class="item"><img src="<?=base_url();?>img/assets/33.jpg"></div>
+				</div>
+				<div class="customNavigation">
+					<a class="btn prev" id="prev"><svg class="prev_svg" height="35px" width="30px" id="Layer_1" style="enable-background:new 0 0 35 35;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="352,115.4 331.3,96 160,256 331.3,416 352,396.7 201.5,256 "/></svg></a>
+					<a class="btn next" id="next"><svg class="next_svg" height="35px" width="30px" id="Layer_1" style="enable-background:new 0 0 35 35;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/></svg></a>
+				</div>
+			</div>
+			<div class="row padding-top">
 				<?php foreach($items as $item):?>
-				<div class="product col-sm-6 col-md-4 col-lg-3"><div class="well"><ins>Заголовок</ins>: <?=$item['item_name'];?><br /><ins>Описание</ins>: <?=$item['item_descript'];?><br /><ins>Продолжительность</ins>: <?=$item['duration'];?><br /><ins>Организатор</ins>: <?=$item['organizer'];?><br /><img width="50" src="<?=base_url();?>img/items/<?=$item['item_img'];?>" /></div></div>
+				<div class="product col-sm-6 col-md-4 col-lg-3"><div class="panel panel-default"><div class="panel-heading">Рейтинг: </div><div class="panel-body"><img class="item_img" src="<?=base_url();?>img/items/<?=$item['item_img'];?>" /></div><div class="panel-footer"><a href="<?=base_url();?>view/<?php $s_inst = $this->items_model->get_menu_by_id($item['id_category']); echo $s_inst['link'];?>/<?php $f_inst = $this->items_model->get_menu_by_id($item['id_second_menu']); echo $f_inst['link'];?>/<?=$item['id_item'];?>"><?=$item['item_name'];?></a><br>Театр оперы и балета</div></div></div>
                 <?php endforeach; ?>
 			</div>
 		</div>
-		<div id="sidebar" class="col-md-3"><div class="well">3<br/>#sidebar</div></div>
-	</div>
-	<div id="footer">
-		<div class="footer-top row">
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">Онас<br />О компании<br />
-Адреса наших касс<br />
-Адреса офисов<br />
-Лого Ticketland.ru<br />
-Пресс-центр<br />
-Реквизиты<br />
-Вакансии</div></div>
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">Проекты<br />
-Электронный билет<br />
-Программа «Карта Зрителя»<br />
-Подарочная карта<br />
-Благотворительность<br />
-Промо-код</div></div>
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">Помощь<br />
-Изменения в репертуаре<br />
-Часто задаваемые вопросы<br />
-Как заказать билеты<br />
-Карта сайта</div></div>
-			<div class="menu-footer col-sm-6 col-md-2"><div class="well">Правила использования<br />
-Пользовательское соглашение<br />
-Публичная оферта<br />
-Политика конфиденциальности</div></div>
-			<div class="menu-footer col-sm-6 col-md-4"><div class="well">Контакты<br />
-+996 (312) 99-77-99<br />
-Ибраимова, д. 103, Бишкек, 720000 (остановка «ЦУМ»)</div></div>
-		</div>
-		<div class="footer-bottom row">
-			<div class="copyrights col-sm-6 col-md-6"><div class="well">© ОсОО «TICKET», 2015
-Ибраимова, д. 103, Бишкек, 720000
-Телефон: +996 (312) 99-77-99
-office@ticket.kg</div></div>
-			<div class="social-icons col-sm-6 col-md-6"><div class="well">6<br>.social-icons</div></div>
+		<div id="sidebar" class="col-md-3">
+			<div class="well">
+				<div class="padding_in">
+				<ul class="list-group">
+					<?php foreach ($menu_first as $menu_i):?>
+					<?php $menu_up = mb_strtoupper($menu_i['menu']);
+					$count = $this->items_model->count_items_first($menu_i['id_menu']);
+					?>
+					<li class="list-group-item"><span class="badge"><?=$count;?></span><a href="<?=base_url();?>view/<?=$menu_i['link'];?>"><?=$menu_up;?></a></li>
+					<?php endforeach;?>
+				</ul>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="<?=base_url();?>js/bootstrap.min.js"></script>
-  </body>
-</html>
+	</div>
+	

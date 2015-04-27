@@ -1,67 +1,25 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Items_model extends Crud
+class Comments_model extends Crud
 {
     
-public $table = 'items'; //Имя таблицы	
-public $idkey = 'id_item'; //Имя ID
+public $table = 'comments'; //Имя таблицы	
+public $idkey = 'id_comment'; //Имя ID
 
 // правила для добавления нового материала
 public $add_rules = array
 (
     array
     (
-      'field' => 'item_name',
-      'label' => 'Наименование',
+      'field' => 'comment',
+      'label' => 'Комментарий',
       'rules' => 'required'
     ),
     array
     (
-      'field' => 'id_measure',
-      'label' => 'Единица измерения',
+      'field' => 'id_item',
+      'label' => 'ID мероприятия',
       'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'cost',
-      'label' => 'Стоимость',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'id_category',
-      'label' => 'Категория',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'id_specifics',
-      'label' => 'Набор характеристик',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'id_second_menu',
-      'label' => 'Подкатегория',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'id_third_menu',
-      'label' => 'Нижняя категория',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'create_date',
-      'label' => 'Дата',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'item_img',
-      'label' => 'Изображение',
-      'rules' => ''
     )
 );
 
@@ -77,199 +35,15 @@ public $update_rules = array
 );
 
 
-public function get_items()
-{   
-    $this->db->order_by ($this->idkey,'desc');  
-    $query = $this->db->get($this->table);
-    //$this->db->limit($limit,$start_from);  
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_items_first($first)
-{   
-    $this->db->order_by ($this->idkey,'desc');
-    $this->db->where ('id_category',$first);
-    //$this->db->limit($limit,$start_from);    
-    $query = $this->db->get($this->table);
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_items_second($second)
-{   
-    $this->db->order_by ($this->idkey,'desc');
-    $this->db->where ('id_second_menu',$second);
-    //$this->db->limit($limit,$start_from);    
-    $query = $this->db->get($this->table);
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_items_third($third)
-{   
-    $this->db->order_by ($this->idkey,'desc');
-    $this->db->where ('id_third_menu',$third);
-    //$this->db->limit($limit,$start_from);    
-    $query = $this->db->get($this->table);
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_item($id)
-{   
-    $this->db->order_by ($this->idkey,'desc');
-    $this->db->where ('id_item',$id);
-    $this->db->limit(1);  
-    $query = $this->db->get($this->table);
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->row_array();
-}
-
-public function count_items_first($to_get)
-{   
-    $this->db->order_by ($this->idkey);
-    $this->db->where ('id_category',$to_get);
-    $this->db->where ('id_status',1);
-    return $this->db->count_all_results('items');
-}
-
-public function get_menu_first()
-{   
-    $this->db->order_by ('id_menu');
-    $this->db->where ('type',1);
-    $this->db->where ('active',1);   
-    $query = $this->db->get('menu');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-
-public function get_menu_second($menu)
-{   
-    $this->db->order_by ('id_menu');
-    $this->db->where ('type',2);
-    $this->db->where ('active',1);
-    $this->db->where ('bind',$menu);   
-    $query = $this->db->get('menu');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_menu_third($menu)
-{   
-    $this->db->order_by ('id_menu');
-    $this->db->where ('type',3);
-    $this->db->where ('active',1);
-    $this->db->where ('bind',$menu);
-    //$this->db->limit($limit,$start_from);    
-    $query = $this->db->get('menu');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_menu_link($menu)
-{   
-    $this->db->where ('active',1);
-    $this->db->where ('link',$menu);
-    $this->db->limit(1);
-    $query = $this->db->get('menu');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->row_array();
-}
-
-public function get_menu_by_id($menu)
-{   
-    $this->db->where ('active',1);
-    $this->db->where ('id_menu',$menu);
-    $this->db->limit(1);
-    $query = $this->db->get('menu');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->row_array();
-}
-
-public function get_acts_in($item_id)
-{   
-    $this->db->where ('id_item',$item_id);
-    $query = $this->db->get('acts_in');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_hum($id_act)
-{   
-    $this->db->order_by ('role');
-    $this->db->where ('id_human',$id_act);
-    $this->db->limit(1);
-    $query = $this->db->get('humans');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    //return $query->result_array();
-    return $query->row_array();
-}
-
-public function get_role($role)
-{   
-    $this->db->where ('id_role',$role);
-    $this->db->limit(1);
-    $query = $this->db->get('roles');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->row_array();
-}
-
-public function get_comments($id_item)
-{   
-    $this->db->where ('id_item',$id_item);
-    $query = $this->db->get('comments');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_items_act($id_item)
-{   
-    $this->db->order_by ('date');
-    $this->db->where ('id_item',$id_item);
-    $query = $this->db->get('items_act');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
-}
-
-public function get_location($location)
-{   
-    $this->db->where ('id_company',$location);
-    $this->db->limit(1);
-    $query = $this->db->get('institutions');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->row_array();
-}
-
-
-public function get_tickets($id_item_act)
+public function add_comment()
 {
-    $this->db->where ('id_item_act',$id_item_act);
-    $query = $this->db->get('tickets');
-    
-    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
-    return $query->result_array();
+    $user = $this->ion_auth->user()->row();
+    $data['comment'] = $this->input->post('comment');
+    $data['id_item'] = $this->input->post('id_item');
+    $data['date'] = date ("Y-m-d H:i:s");
+    $data['id_user'] = $user->id;
+    $this->db->insert('comments',$data);//Создание проводки
 }
-
-
-
-
 
 
 
