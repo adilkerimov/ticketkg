@@ -9,26 +9,91 @@ class Share_model extends Model {
 	}
 	
 	// Updated the shopping cart
-	function validate_buy_share(){
+	function validate_buy_ticket(){
 		// Retrieve the posted information
 		$item = $this->input->post('id_item');
-	    $qty = $this->input->post('quantity');
+		$cost = $this->input->post('cost');//500; //$this->input->post('cost');
+		$locate = explode("-", $item);
+	    //$ticks = $this->input->post('tickets');
         $date = date("Y-m-d H:i:s");
-        $user = $this->ion_auth->user()->row();
-        echo $item;
+        
 		// Cycle true all items and update them
-		for($i=0;$i < $qty;$i++)
-		{
+
+        if ($this->ion_auth->logged_in()){
 			// Create an array with the products rowid's and quantities. 
-			$data = array(
-               'id_item' => $item,
-               'id_user' => $user->id,
-               'create_date' => $date
-            );
+		$user = $this->ion_auth->user()->row();
+		$data = array(
+        	'target' => $item,
+        	'id_item_act' => $locate[0],
+        	'section' => $locate[1],
+        	'row' => $locate[2],
+        	'seat' => $locate[3],
+        	'id_user' => $user->id,
+        	'cost' => $cost,
+        	'create_date' => $date
+        );
             
             // Update the cart with the new information
-			$this->db->insert('shares',$data);
+		$this->db->insert('tickets',$data);
 		}
+		else{
+			echo 'Необходимо авторизоваться на сайте под своим логином.';
+		}
+	}
+
+	// Updated the shopping cart
+	function validate_has_ticket(){
+		// Retrieve the posted information
+		$item = $this->input->post('id_item');
+		$this->db->where ('target',$item);
+		//$this->db->where ('status',0);
+   		$query = $this->db->get('tickets');
+    
+    	//Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    	return $query->result_array();
+	}
+
+	// Updated the shopping cart
+	function user_has_ticket(){
+		// Retrieve the posted information
+		$item = $this->input->post('id_item');
+		if ($this->ion_auth->logged_in()){
+		$user = $this->ion_auth->user()->row();
+
+        $this->db->where ('id_user',$user->id);
+		$this->db->where ('target',$item);
+		//$this->db->where ('status',0);
+   		$query = $this->db->get('tickets');
+    
+    	//Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    	return $query->result_array();
+    	}
+		else{
+		}
+	}
+
+	function item_has_ticket($item){
+		// Retrieve the posted information
+		$this->db->where ('target',$item);
+		//$this->db->where ('status',0);
+   		$query = $this->db->get('tickets');
+    
+    	//Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    	return $query->result_array();
+	}
+
+
+	// Updated the shopping cart
+	function user_abort_ticket(){
+		// Retrieve the posted information
+		$item = $this->input->post('id_item');
+        $user = $this->ion_auth->user()->row();
+
+        $this->db->where ('id_user',$user->id);
+        $this->db->where ('target',$item);
+
+        // Update the cart with the new information
+		$this->db->delete('tickets');
 	}
 	
 	// Add an item to the cart
@@ -39,23 +104,23 @@ class Share_model extends Model {
 		$measur = $this->input->post('measure'); // Assign posted quantity to $cty
         if ($measur == 'kg')
         {
-        $meascon = '��';
+        $meascon = 'кг';
         }
         elseif ($measur == 'sht')
         {
-        $meascon = '��';    
+        $meascon = 'шт';    
         }
         elseif ($measur == 'puch')
         {
-        $meascon = '���';    
+        $meascon = 'пуч';    
         }
         elseif ($measur == 'l')
         {
-        $meascon = '�';    
+        $meascon = 'л';    
         }
         else
         {
-        $meascon = '������';
+        $meascon = 'ошибка';
         }
 		 
 		//$kolvo = $this->input->post('kolichestvo');

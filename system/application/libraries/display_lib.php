@@ -26,6 +26,17 @@ public function main($data,$name)
     $CI->load->view($name.'_view',$data);
     $CI->load->view('footer_view');      
 }
+
+public function seat($data,$name)
+{
+    $CI =& get_instance ();
+    $CI->load->view('preheader_view');
+    $CI->load->view('header_view');
+    $CI->load->view('navigation_view');
+    $CI->load->view($name.'_view',$data);
+    $CI->load->view('footer_item_view');      
+}
+
 public function maina($data,$name)
 {
     $CI =& get_instance ();

@@ -1,11 +1,5 @@
-<!-- CONTAINER -->
-<div id="container">
-
-
-<div class="clear mymarg"></div>
-
-<div class="window_simp">
-
+<div id="content" class="row">
+      <div id="featured" class="col-md-9">
 <h1><?php echo lang('login_heading');?></h1>
 <p><?php echo lang('login_subheading');?></p>
 
@@ -37,6 +31,5 @@
 
 </div>
 
-
 </div>
-<div class="clear"></div>
+</div>

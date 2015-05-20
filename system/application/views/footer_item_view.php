@@ -101,16 +101,24 @@ office@ticket.kg</div></div>
 
       $('.seat').tooltip();
 
-      /*var tess = $('#test').attr('data-original-title');
-      alert(tess);*/
 
      }); 
           
     </script>
     <script type="text/javascript">
       $(document).ready(function() {
-      /*var str = '<?php foreach ($seats as $seat) : ?>{"id_seat":"<?=$seat['id_seat'];?>","row":"<?=$seat['row'];?>","seat":"<?=$seat['seat'];?>","cost":"<?=$seat['cost'];?>"}<?php endforeach;?>';
-      var seats = JSON.parse(str);*/
+      var str = '<?php echo json_encode($seats);?>';
+      var data = $.parseJSON(str);
+      var l = 0;
+      jQuery.each(data, function() {
+      $("#" + data[l].target).removeClass('btn-default').addClass('btn-danger');
+      l++;
+      <? if($this->ion_auth->logged_in()){$user = $this->ion_auth->user()->row(); echo $user->id;}?>
+      });
+
+      var seatcost = 500;
+      $('div[id^="2-1-"]').attr('cost',seatcost);
+
       }); 
     </script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

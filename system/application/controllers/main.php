@@ -9,6 +9,7 @@ class Main extends Controller {
         $this->load->model('comments_model'); 
         $this->load->model('items_model');
         $this->load->model('share_model');
+        $this->load->library('ciqrcode');
                
     }
       
@@ -20,6 +21,12 @@ class Main extends Controller {
        $name = 'index';
        $this->display_lib->main($data,$name);     
 	}
+
+    public function qr()
+    {
+       
+        $this->load->view('qr');     
+    }
     
     public function view($page_id = '',$page_id2 = '',$page_id3 = '',$page_id4 = '',$page_id5 = '')
 	{  
@@ -32,16 +39,23 @@ class Main extends Controller {
          $check4 = $this->items_model->get_tickets($page_id4);
          $check3 = $this->items_model->get_item($page_id3);
          if($check4){
+         if($this->ion_auth->logged_in()){
+          $user = $this->ion_auth->user()->row(); 
+          $data['user_seat'] = $this->items_model->user_seats($user->id);
+          $data['u_seat_count'] = $this->items_model->u_seat_count($user->id);
+          $data['u_seat_sum'] = $this->items_model->u_seat_sum($user->id);
+         } 
          $data['acts'] = $this->items_model->get_acts_in($page_id3);
          $data['comments'] = $this->items_model->get_comments($page_id3);
          $data['items_act'] = $this->items_model->get_items_act($page_id3);
+         $data['seats'] = $this->items_model->get_seats($page_id4);
          $data['main_info'] = $check3;
          $data['tickets'] = $check4;
          $data['page_id'] = $page_id;
          $data['page_id2'] = $page_id2;
          $data['page_id3'] = $page_id3;
          $name = 'seats';
-         $this->display_lib->main($data,$name);
+         $this->display_lib->seat($data,$name);
          }
          else{
          redirect (base_url());
@@ -146,7 +160,7 @@ class Main extends Controller {
          $data['items'] = $this->items_model->get_items_third($third_menu['id_menu']);
          $data['menu_first'] = $this->items_model->get_menu_first();
          $name = 'index';
-         $this->display_lib->main($data,$name);  
+         $this->display_lib->item($data,$name);  
          }
          else{
          redirect (base_url());
@@ -215,11 +229,25 @@ class Main extends Controller {
         }
 	}
     
-    public function buy_share(){
-		$this->share_model->validate_buy_share();
-        
-		redirect('main');
+    public function buy_ticket(){
+        $is_there = $this->share_model->validate_has_ticket();
+        if(empty($is_there)){
+        $this->share_model->validate_buy_ticket();  
+        }
+		else{
+        echo 'К сожалению данный билет уже забронирован либо выкуплен.';
+        }
 	}
+
+    public function abort_ticket(){
+        $is_there = $this->share_model->user_has_ticket();
+        if(empty($is_there)){
+        echo 'Бронь по данному билету не может быть удалена.';
+        }
+        else{
+        $this->share_model->user_abort_ticket();
+        }
+    }
     
     public function show_my_share(){
         $data['items'] = $this->items_model->get_items();

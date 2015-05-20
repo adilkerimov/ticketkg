@@ -1,77 +1,32 @@
-<!-- CONTAINER -->
-<div id="container">
-
-<div id="rightcolumn">
-<div id="rightnav"  class="droplist">
-<div id="rightnavhead">
-<p class="strong"><img src="/img/list.png" width="8"/>&nbsp;&nbsp;КАТАЛОГ ТОВАРОВ</p>
-</div>
-<ul class="menus">
-<?php foreach($menu_first as $item):?>
-<a href="<?=base_url();?>catalog/<?=$item['link'];?>"><li><?=$item['menu'];?><div class="table_block radius_under none" id="menu">
-<table>
-<tr><td></td><td>
-<dl>
-<?php $second_menu = $this->items_model->get_menu_second($item['id_menu']); ?>
-<?php foreach($second_menu as $second):?>
-<dt><a href="<?=base_url();?>catalog/<?=$item['link'];?>/<?=$second['link'];?>"><?=$second['menu'];?></a></dt>
-<?php $third_menu = $this->items_model->get_menu_third($second['id_menu']); ?>
-<?php foreach($third_menu as $third):?>
-<dd><a href="<?=base_url();?>catalog/<?=$item['link'];?>/<?=$second['link'];?>/<?=$third['link'];?>"><?=$third['menu'];?></a></dd>
-<?php endforeach; ?>
-<?php endforeach; ?>
-</dl>
-</td></tr>
-</table>
-</div></li></a>
-<?php endforeach; ?>
-</ul>
-</div>
-</div>
-<div id="content_block">
-<div id="center">
-<div id="banner" class="radius">
-<div id="owl-demo" class="owl-carousel">
-<div class="item"><img src="<?=base_url();?>img/assets/fullimage1.jpg" alt="The Last of us"></div>
-<div class="item"><img src="<?=base_url();?>img/assets/fullimage2.jpg" alt="GTA V"></div>
-<div class="item"><img src="<?=base_url();?>img/assets/fullimage3.jpg" alt="Mirror Edge"></div>
-</div>
-</div>
-<div style="position: relative;"><br />
-<?php foreach($items as $item):?>
-<div class="item_1 radius">
-    <svg class="item_mark" width="95" height="22">
-    <polygon points="0,0 80,0 95,10 80,20 0,20" fill="#5DA100"/>
-    <text x="10" y="13" fill="#fff" style="font-size: 12px;">Новинки</text>  
-    </svg>
-    <img src="<?=base_url();?>img/items/<?=$item['item_img'];?>" width="150"/><br /><br />
-    <?=$item['item_name'];?><br />
-    <div class="item_price">
-    Цена за шт: <span><?=$item['cost'];?> сом</span>
-    </div>
-    <br />
-<div class="item_add">
-<div class="quant_form">
-<div class='js_down amdown'>-</div>
-<input class='js_amount orderamount' id='amount<?=$item['id_item'];?>' value="1"/>
-<div class='js_up amup'>+</div>
-</div>
-<div class="js_cart" id="<?=$item['id_item'];?>"><a href="" class="buy radius" id="<?=$item['id_item'];?>">В корзину</a></div>
-</div>
-</div>
-<?php endforeach; ?>
-
-</div>
-<div class="clear"><br /></div>
-
-
-
-<div class="clear"><br /></div>
-
-
-<br /><br />
-</div>
-</div>
-</div>
-<div class="clear"></div>
-<div id="cart_content"></div>
+	<div id="content" class="row">
+		<div id="featured" class="col-md-9">
+			<div class="row padding-top">
+				<?php foreach($items as $item):?>
+				<div class="institution col-sm-6 col-md-12 col-lg-12">
+						<div class="col-sm-3 col-md-3 col-lg-3"><img width="150" src="<?=base_url();?>img/items/<?=$item['item_img'];?>" /></div>
+						<div class="col-sm-6 col-md-6 col-lg-7"><a href="<?=base_url();?>view/<?php $s_inst = $this->items_model->get_menu_by_id($item['id_category']); echo $s_inst['link'];?>/<?php $f_inst = $this->items_model->get_menu_by_id($item['id_second_menu']); echo $f_inst['link'];?>/<?=$item['id_item'];?>"><?=$item['item_name'];?></a><br>Театр оперы и балета</div>
+						<div class="col-sm-3 col-md-3 col-lg-2"><a href="" class="btn">Репертуар</a></div>
+				</div>
+				<div class="col-sm-6 col-md-12 col-lg-12">
+					<div class="line">
+					</div>
+				</div>
+                <?php endforeach; ?>
+			</div>
+		</div>
+		<div id="sidebar" class="col-md-3">
+			<div class="well">
+				<div class="padding_in">
+				<ul class="list-group">
+					<?php foreach ($menu_first as $menu_i):?>
+					<?php $menu_up = mb_strtoupper($menu_i['menu']);
+					$count = $this->items_model->count_items_first($menu_i['id_menu']);
+					?>
+					<li class="list-group-item"><span class="badge"><?=$count;?></span><a href="<?=base_url();?>view/<?=$menu_i['link'];?>"><?=$menu_up;?></a></li>
+					<?php endforeach;?>
+				</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>

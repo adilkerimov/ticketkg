@@ -1,9 +1,10 @@
-	<div id="content" class="row">
-		<div id="featured" class="col-md-9">
-			<div class="row">
+<div id="content" class="row">
+	
+		<div id="featured" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+			<div class="row hidden-xs">
 				<div id="owl-demo" class="owl-carousel col-sm-6 col-md-4 col-lg-3">
-				    <div class="item"><img src="<?=base_url();?>img/assets/11.jpg"></div>
 				    <div class="item"><img src="<?=base_url();?>img/assets/22.jpg"></div>
+				    <div class="item"><img src="<?=base_url();?>img/assets/123.jpg"></div>
 				    <div class="item"><img src="<?=base_url();?>img/assets/33.jpg"></div>
 				</div>
 				<div class="customNavigation">
@@ -17,7 +18,7 @@
                 <?php endforeach; ?>
 			</div>
 		</div>
-		<div id="sidebar" class="col-md-3">
+		<div id="sidebar" class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 			<div class="well">
 				<div class="padding_in">
 				<ul class="list-group">

@@ -119,6 +119,17 @@ public function get_items_third($third)
     return $query->result_array();
 }
 
+public function get_institutions($menu)
+{   
+    $this->db->order_by ('id_company');
+    $this->db->where ('first_menu',$menu);
+    //$this->db->limit($limit,$start_from);    
+    $query = $this->db->get('institutions');
+    
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
 public function get_item($id)
 {   
     $this->db->order_by ($this->idkey,'desc');
@@ -257,7 +268,7 @@ public function get_location($location)
     return $query->row_array();
 }
 
-
+/* TICKETS */
 public function get_tickets($id_item_act)
 {
     $this->db->where ('id_item_act',$id_item_act);
@@ -268,8 +279,49 @@ public function get_tickets($id_item_act)
 }
 
 
+/* SEATS */
+public function get_seats($inst)
+{
+    //$this->db->distinct();
+    $this->db->select('target,section,row,seat,status');
+    $this->db->where ('id_item_act', $inst);  
+    $this->db->where ('status !=', 9); 
+    $query = $this->db->get('tickets');
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
 
+public function user_seats($inst)
+{
+    //$this->db->distinct();
+    $this->db->select('target,section,row,seat,status');
+    $this->db->where ('id_user', $inst);  
+    //$this->db->where ('status !=', 9); 
+    $query = $this->db->get('tickets');
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
 
+public function u_seat_count($user)
+{
+    $this->db->where ('id_user', $user);  
+    return $this->db->count_all_results('tickets');
+}
+
+public function u_seat_sum($user)
+{
+    $this->db->where ('id_user', $user);  
+    $count = 0;
+    $query = $this->db->get('tickets');
+
+    foreach ($query->result() as $row)
+    {
+        $count = $count + $row->cost;
+    }    
+    return $count;
+}
 
 
 

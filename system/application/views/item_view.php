@@ -69,16 +69,14 @@
 			<?php foreach ($comments as $comment):?>
 			<?php $com_user = $this->items_model->get_user($comment['id_user']);?>
 			<h5><strong><?=$com_user['first_name']?></strong>&nbsp;&nbsp;&nbsp;<?=strftime("%d/%m/%Y", strtotime($comment['date']));?></h5>
-			<p><?=$comment['comment']?></p><br>
+			<p class="comment"><?=$comment['comment']?></p>
 			<?php endforeach;?>
 			<br>
 			<?php if(isset($info)){echo $info."<br><br>";}?>
-			
 			<form id="comment_form" action="<?=base_url()?>main/comment" method="post">
 			<input type="hidden" name="link" value="<?=base_url()?>view/<?=$page_id;?>/<?=$page_id2;?>/<?=$main_info['id_item']?>">
 			<input type="hidden" name="id_item" value="<?=$main_info['id_item']?>">
 			<textarea name="comment" rows="5" cols="60" placeholder="<?php if (!$this->ion_auth->logged_in()){echo 'Чтобы оставить комментарий, авторизируйтесь на сайте.';} else {echo 'Введите комментарий...';}?>"></textarea><br><br>
-			
 			<a href="javascript:{}" onclick="document.getElementById('comment_form').submit();" class="btn<?php if (!$this->ion_auth->logged_in()){echo ' disabled';} ?>">Комментировать</a>
 			</form>
 		</div>

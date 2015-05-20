@@ -1,7 +1,5 @@
-<div id="container">
-<div class="clear mymarg"></div>
-
-<div class="window_simp">
+<div id="content" class="row">
+      <div id="featured" class="col-md-9">
 <h1><?php echo lang('forgot_password_heading');?></h1>
 <p><?php echo sprintf(lang('forgot_password_subheading'), $identity_label);?></p>
 
@@ -22,6 +20,6 @@
 </div>
 </div>
 
-<div class="clear"></div>
+</div>
 
 </div>

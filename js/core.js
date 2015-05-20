@@ -1,44 +1,81 @@
 $(document).ready(function() { 
 	/*place jQuery actions here*/ 
-	var link = "http://mm.kg/";
-	
-	//Покупка на главной странице
-	$(document).on("click",'.js_cart',function(){
-        //e.preventDefault();
-		var id = $(this).attr('id');
-		var qty = $('#amount'+id).val();
-		
-		 $.post(link + "items/add_cart_item", { product_id: id, quantity: qty, ajax: '1' },
-  			function(data){
-  			if(data == 'true'){
-    			$.get(link + "items/show_cart", function(cart){
-  					$("#bag_text").html(cart);
-				});
-                $('#amount'+id).val("");
+	var link = "http://ticket.kg/";
 
-    		}else{
-    			alert("Product does not exist");
-    		}	
- 		 }); 
+    // Покупка доли Ticket.kg
+	$(document).on("click",'.seat',function(){
+        var pid = $(this).attr('id');
+        var t_cost = $(this).attr('cost');
+        if ($(this).hasClass('btn-primary')) {
 
-		return false;
-	});
+        $(this).removeClass('btn-primary').addClass('btn-default');
+        var conf="Вы действительно хотите удалить?";
+          if(confirm(conf)){
+          $.post(link + "main/abort_ticket", {id_item: pid},
+             function(data){
+              if(isNaN(data)){
+              alert("Бронь по данному билету не может быть удалена."); 
+              }
+              else{
+              
+              }
+              //$.get(link + "main/show_my_share", function(cart){
+              //$("body").html(cart);
+              //});
+             });
+          }
+        }
+        else if ($(this).hasClass('btn-danger')) {
+        $(this).removeClass('btn-danger').addClass('btn-default');
+        var conf="Вы действительно хотите удалить?";
+          if(confirm(conf)){
+          $.post(link + "main/abort_ticket", {id_item: pid},
+             function(data){
+              if(isNaN(data)){
+              alert(data); 
+              }
+              else{
+              //alert("Что то не то"); 
+              }
+              //$.get(link + "main/show_my_share", function(cart){
+              //$("body").html(cart);
+              //});
+             });
+          }
+        }
+        else{
+        //var pid = $(this).attr('id');
+        $(this).removeClass('btn-default').addClass('btn-primary');
+        //var ticks = $('#amount'+pid).val();
+        //if(confirm(conf)){
+          $.post(link + "main/buy_ticket", {id_item: pid, cost:t_cost},
+             function(data){
+              if(isNaN(data)){
+              alert(data); 
+              }
+              else{
+                var myinput=$('.sum');
+
+                var inival=parseFloat(myinput.text());
 
 
-    // Покупка доли LuckyStore.kg
-	$(document).on("click",'.js_buy',function(){
-        var conf="Вы действительно хотите купить?";
-        var pid = $(this).attr('iid');
-        var quant = $('#amount'+pid).val();
-        if(confirm(conf)){
-               
-		$.post(link + "main/buy_share", { id_item: pid, quantity: quant},
-  			function(data){
-    			$.get(link + "main/show_my_share", function(cart){
-  					$("body").html(cart);
-				});
- 		 });
-        }	
+                var cost = $('#'+pid).attr('cost');
+                var costval=parseFloat(cost);
+
+                if(isNaN(inival)) inival=0;
+                var newval=inival+costval;
+                newval=parseFloat(Math.round(newval * 100) / 100).toFixed(0);
+                myinput.text(newval);
+
+
+              }
+              
+              //$.get(link + "main/show_my_share", function(cart){
+              //$("body").html(cart);
+              //});
+             });
+        //}
+        };
     });	
     
     // Авторизация AJAX
@@ -81,6 +118,7 @@ $(document).ready(function() {
     
 
   });
+  
 });
 
 
