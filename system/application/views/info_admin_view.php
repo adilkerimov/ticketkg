@@ -1,7 +1,7 @@
 <!-- CONTAINER -->
-<div id="container">
+<div id="content" class="row">
+<div id="featured" class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
 
-<div id="rightcolumn">
 <div id="rightnav"  class="droplist">
 <div id="rightnavhead">
 <p class="strong"><img src="/img/list.png" width="8"/>&nbsp;&nbsp;АДМИНИСТРИРОВАНИЕ</p>
@@ -27,7 +27,11 @@
 <?php endforeach; ?>
 </ul>
 </div>
+
 </div>
+
+<div id="sidebar" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+
 <div id="content_block">
 <div id="center">
 <br /><br />
@@ -35,4 +39,6 @@
 </div>
 </div>
 </div>
-<div class="clear"></div>
+
+</div>
+</div>

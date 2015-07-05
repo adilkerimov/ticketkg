@@ -1,7 +1,7 @@
 <!-- CONTAINER -->
-<div id="container">
+<div id="content" class="row">
+<div id="featured" class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
 
-<div id="rightcolumn">
 <div id="rightnav"  class="droplist">
 <div id="rightnavhead">
 <p class="strong"><img src="/img/list.png" width="8"/>&nbsp;&nbsp;АДМИНИСТРИРОВАНИЕ</p>
@@ -27,30 +27,33 @@
 <?php endforeach; ?>
 </ul>
 </div>
+
 </div>
+
+<div id="sidebar" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+
 <div id="content_block">
 <div id="center">
 <br />
-<p class="strong">Добавить подкатегорию</p>
-<?=form_error('menu');?>
-<?=form_error('link');?>
-<?=form_error('bind');?>
+<h2>Добавить учреждение</h2>
+<p><?=form_error('menu');?></p>
+<p><?=form_error('link');?></p>
+<p><?=form_error('bind');?></p>
 <?php echo form_open("category/add_second_menu");?><br />
-<p style="float: left; clear: both; margin: 15px 0 15px 0;"> 
-<?php echo form_input($menu);?> Наименование подкатегории<br /><br />
+<p style="float: left; clear: both; margin: 5px 0 15px 0;"> 
+<?php echo form_input($menu);?> Наименование учреждения<br /><br />
 <?php echo form_input($link);?> Короткое имя на латинице<br /><br />
 <select name="bind">
-<option disabled selected>Выберите категорию</option>
+<option disabled selected>Выберите тип учреждения</option>
 <?php $category = $this->category_model->get_category(); ?>
 <?php foreach($category as $item):?>
 <option value="<?=$item['id_menu'];?>"><?=$item['menu'];?></option>
 <?php endforeach;?>
 </select>
-    
-     Связка с основной категорией<br />
+     Связка с типом учреждения<br />
 </p><br /><br /><br />
 
-<p  class="clear"><?php $attributes = 'class = "buy radius"'; echo form_submit('my_button', 'Добавить подкатегорию', $attributes);?></p>
+<p  class="clear"><?php $attributes = 'class = "buy radius"'; echo form_submit('my_button', 'Добавить', $attributes);?></p>
 
 
 <?php echo form_close();?>
@@ -59,4 +62,6 @@
 </div>
 </div>
 </div>
-<div class="clear"></div>
+
+</div>
+</div>

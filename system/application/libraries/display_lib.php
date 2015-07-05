@@ -22,7 +22,7 @@ public function main($data,$name)
     $CI =& get_instance ();
     $CI->load->view('preheader_view');
     $CI->load->view('header_view');
-    $CI->load->view('navigation_view');
+    $CI->load->view('navigation_view',$data);
     $CI->load->view($name.'_view',$data);
     $CI->load->view('footer_view');      
 }
@@ -32,9 +32,19 @@ public function seat($data,$name)
     $CI =& get_instance ();
     $CI->load->view('preheader_view');
     $CI->load->view('header_view');
-    $CI->load->view('navigation_view');
+    $CI->load->view('navigation_view',$data);
     $CI->load->view($name.'_view',$data);
-    $CI->load->view('footer_item_view');      
+    $CI->load->view('footer_item_view',$data);      
+}
+
+public function controll($data,$name)
+{
+    $CI =& get_instance ();
+    $CI->load->view('preheader_view');
+    $CI->load->view('header_view');
+    $CI->load->view('navigation_view',$data);
+    $CI->load->view($name.'_view',$data);
+    $CI->load->view('footer_controll_view');      
 }
 
 public function maina($data,$name)
@@ -52,7 +62,7 @@ public function main_catalog($data,$name)
     $CI =& get_instance ();
     $CI->load->view('preheader_view');
     $CI->load->view('header_view');
-    $CI->load->view('navigation_in_view');
+    $CI->load->view('navigation_in_view',$data);
     $CI->load->view($name.'_view',$data);
     $CI->load->view('footer_view');      
 }
@@ -61,7 +71,7 @@ public function simple($data,$name)
     $CI =& get_instance ();
     $CI->load->view('preheader_view'); 
     $CI->load->view('header_view');
-    $CI->load->view('navigation_view');
+    $CI->load->view('navigation_view',$data);
     $CI->load->view($name.'_view',$data);
     $CI->load->view('footer_view');      
 }
@@ -70,9 +80,9 @@ public function admin($data,$name)
 {
     $CI =& get_instance ();
     $CI->load->view('preheader_view');
-    $CI->load->view('header_view');
+    $CI->load->view('header_admin_view');
     //$CI->load->view('admin_nav_view');
-    $CI->load->view('navigation_view');
+    $CI->load->view('navigation_view',$data);
     $CI->load->view($name.'_view',$data);
     //$CI->load->view('journal_view',$data);   
     $CI->load->view('footer_view');   

@@ -17,12 +17,6 @@ public $add_rules = array
     ),
     array
     (
-      'field' => 'id_measure',
-      'label' => 'Единица измерения',
-      'rules' => 'required'
-    ),
-    array
-    (
       'field' => 'cost',
       'label' => 'Стоимость',
       'rules' => 'required'
@@ -31,12 +25,6 @@ public $add_rules = array
     (
       'field' => 'id_category',
       'label' => 'Категория',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'id_specifics',
-      'label' => 'Набор характеристик',
       'rules' => 'required'
     ),
     array
@@ -80,6 +68,56 @@ public $update_rules = array
 public function get_items()
 {   
     $this->db->order_by ($this->idkey,'desc');  
+    $query = $this->db->get($this->table);
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
+public function get_spectacles_min()
+{   
+    $this->db->order_by ($this->idkey,'desc'); 
+    $this->db->where ('id_third_menu',69); 
+    $query = $this->db->get($this->table);
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
+public function get_concerts_min()
+{   
+    $this->db->order_by ($this->idkey,'desc'); 
+    $this->db->where ('id_third_menu',71); 
+    $query = $this->db->get($this->table);
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
+public function get_kinos_min()
+{   
+    $this->db->order_by ($this->idkey,'desc'); 
+    $this->db->where ('id_third_menu',77); 
+    $query = $this->db->get($this->table);
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
+public function get_shows_min()
+{   
+    $this->db->order_by ($this->idkey,'desc'); 
+    $this->db->where ('id_third_menu',69); 
+    $query = $this->db->get($this->table);
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
+public function get_kid_min()
+{   
+    $this->db->order_by ($this->idkey,'desc'); 
+    $this->db->where ('id_third_menu',69); 
     $query = $this->db->get($this->table);
     //$this->db->limit($limit,$start_from);  
     //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
@@ -130,6 +168,16 @@ public function get_institutions($menu)
     return $query->result_array();
 }
 
+public function get_institution($id)
+{   
+    $this->db->where ('id_company',$id);
+    //$this->db->limit($limit,$start_from);    
+    $query = $this->db->get('institutions');
+    
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->row_array();
+}
+
 public function get_item($id)
 {   
     $this->db->order_by ($this->idkey,'desc');
@@ -173,12 +221,12 @@ public function get_menu_second($menu)
     return $query->result_array();
 }
 
-public function get_menu_third($menu)
+public function get_menu_third()
 {   
     $this->db->order_by ('id_menu');
     $this->db->where ('type',3);
     $this->db->where ('active',1);
-    $this->db->where ('bind',$menu);
+    //$this->db->where ('bind',$menu);
     //$this->db->limit($limit,$start_from);    
     $query = $this->db->get('menu');
     
@@ -258,11 +306,44 @@ public function get_items_act($id_item)
     return $query->result_array();
 }
 
+public function get_items_act_m($id_m)
+{   
+    $this->db->order_by ('date');
+    $this->db->where ('id_item',$id_m['act']);
+    $this->db->where ('month',$id_m['m_y']);
+
+    $query = $this->db->get('items_act');
+    
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
+public function get_items_act_l($id_item)
+{   
+    $this->db->order_by ('date');
+    $this->db->where ('id_item',$id_item);
+    $this->db->limit(1);
+    $query = $this->db->get('items_act');
+    
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->row_array();
+}
+
 public function get_location($location)
 {   
     $this->db->where ('id_company',$location);
     $this->db->limit(1);
     $query = $this->db->get('institutions');
+    
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->row_array();
+}
+
+public function get_map($location)
+{   
+    $this->db->where ('id_map',$location);
+    $this->db->limit(1);
+    $query = $this->db->get('maps');
     
     //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
     return $query->row_array();
@@ -277,6 +358,86 @@ public function get_tickets($id_item_act)
     //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
     return $query->result_array();
 }
+
+public function get_user_tickets($id)
+{
+    if ($this->ion_auth->logged_in()){
+    $user = $this->ion_auth->user()->row();    
+    $this->db->order_by ('target');
+    $this->db->where ('id_user',$user->id);
+    $this->db->where ('id_item_act',$id);
+    $query = $this->db->get('tickets');
+    
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+    }
+    else
+    {
+        return false;
+    }
+}
+
+public function get_user_buys()
+{
+    if ($this->ion_auth->logged_in()){
+    $user = $this->ion_auth->user()->row();  
+    $this->db->distinct();
+    $this->db->select('id_item_act');  
+    $this->db->where ('id_user',$user->id);
+    $query = $this->db->get('tickets');
+    
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+    }
+    else
+    {
+        return false;
+    }
+}
+
+public function get_user_sum($idi)
+{
+    if ($this->ion_auth->logged_in()){
+    $user = $this->ion_auth->user()->row();  
+    $bal_count = 0;
+    $this->db->select('cost');  
+    $this->db->where ('id_item_act',$idi);
+    $this->db->where ('id_user',$user->id);
+    $query = $this->db->get('tickets');
+    
+    foreach ($query->result() as $row)
+    {
+        $bal_count = $bal_count + $row->cost;
+    }    
+    return $bal_count;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+public function all_user_sum()
+{
+    if ($this->ion_auth->logged_in()){
+    $user = $this->ion_auth->user()->row();  
+    $bal_count = 0;
+    $this->db->select('cost');  
+    $this->db->where ('id_user',$user->id);
+    $query = $this->db->get('tickets');
+    
+    foreach ($query->result() as $row)
+    {
+        $bal_count = $bal_count + $row->cost;
+    }    
+    return $bal_count;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 
 /* SEATS */
@@ -304,15 +465,58 @@ public function user_seats($inst)
     return $query->result_array();
 }
 
+public function user_seats_item($inst)
+{
+    //$this->db->distinct();
+    $this->db->select('target,section,row,seat,status');
+    $this->db->where ('id_user', $inst['user_id']);  
+    $this->db->where ('id_item_act', $inst['item_id']); 
+    $query = $this->db->get('tickets');
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->result_array();
+}
+
+
+public function get_item_act($id)
+{
+    $this->db->where ('id_item_act', $id);  
+    $query = $this->db->get('items_act');
+    //$this->db->limit($limit,$start_from);  
+    //Возвращаем массив с материалами, урезанный в соответствии с разбивкой pagination
+    return $query->row_array();
+}
+
 public function u_seat_count($user)
 {
     $this->db->where ('id_user', $user);  
     return $this->db->count_all_results('tickets');
 }
 
+public function u_seat_count_item($it)
+{
+    $this->db->where ('id_user', $it['user_id']);
+    $this->db->where ('id_item_act', $it['item_id']);
+    return $this->db->count_all_results('tickets');
+}
+
 public function u_seat_sum($user)
 {
     $this->db->where ('id_user', $user);  
+    $count = 0;
+    $query = $this->db->get('tickets');
+
+    foreach ($query->result() as $row)
+    {
+        $count = $count + $row->cost;
+    }    
+    return $count;
+}
+
+public function u_seat_sum_item($it)
+{
+    $this->db->where ('id_user', $it['user_id']);
+    $this->db->where ('id_item_act', $it['item_id']);   
     $count = 0;
     $query = $this->db->get('tickets');
 

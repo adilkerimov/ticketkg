@@ -206,6 +206,7 @@ public function add()
             $this->items_model->add();            
             $data = array('info' => 'Продукт добавлен');      
             $data['menu_first'] = $this->items_model->get_menu_admin();
+            $data['menu_third'] = $this->items_model->get_menu_third();
             $name = 'products/add';  
             $this->display_lib->admin($data,$name);
             //echo $img_file_name;
@@ -217,7 +218,8 @@ public function add()
             $this->items_model->add();            
             $data = array('info' => 'Продукт добавлен');      
             $name = 'products/add';
-            $data['menu_first'] = $this->items_model->get_menu_admin(); 
+            $data['menu_first'] = $this->items_model->get_menu_admin();
+            $data['menu_third'] = $this->items_model->get_menu_third(); 
             $this->display_lib->admin($data,$name); 
             //redirect(base_url().'products/add');
         }  
@@ -226,6 +228,8 @@ public function add()
         {
             $name = 'products/add';
             $data['menu_first'] = $this->items_model->get_menu_admin(); 
+            $data['menu_third'] = $this->items_model->get_menu_third();
+            $data['error'] = '';
             // Передаем пустой массив data так как того требует функция               admin_page 
             $this->display_lib->admin($data,$name);           
         }
@@ -236,7 +240,8 @@ public function add()
     {                      
         $name = 'products/add';
         $data = array();
-        $data['menu_first'] = $this->items_model->get_menu_admin();    
+        $data['menu_first'] = $this->items_model->get_menu_admin();  
+        $data['menu_third'] = $this->items_model->get_menu_third();  
         $data['error'] = '';
         $this->display_lib->admin($data,$name);
     }
@@ -275,7 +280,8 @@ public function edit($page_id = '')
     if (empty($data))
     {
         $data = array('info' => 'Такого продукта нет'); 
-        $data['menu_first'] = $this->items_model->get_menu_admin();       
+        $data['menu_first'] = $this->items_model->get_menu_admin(); 
+        $data['menu_third'] = $this->items_model->get_menu_third();      
         $this->display_lib->admin($data);               
     }
 
@@ -283,6 +289,7 @@ public function edit($page_id = '')
     {
         $name = 'products/edit';
         $data['menu_first'] = $this->items_model->get_menu_admin(); 
+        $data['menu_third'] = $this->items_model->get_menu_third();
         $this->display_lib->admin($data,$name);
     }
 }

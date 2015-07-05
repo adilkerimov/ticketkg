@@ -7,7 +7,7 @@
         </div>
       </div>
   </div>
-  <div id="footer">
+  <div id="footer" class="hidden-xs">
     <div id="wrapper" class="container">
   
     <div class="footer-top row">
@@ -45,7 +45,7 @@
       <div class="menu-footer col-sm-6 col-md-2"><div class="well">
 <ul class="footer_list">
 <li>Правила использования</li><br />
-<li><a href="#">Пользовательское соглашение</a></li><br />
+<li><a href="<?=base_url()?>agreement">Пользовательское соглашение</a></li><br />
 <li><a href="#">Публичная оферта</a></li><br />
 <li><a href="#">Политика конфиденциальности</a></li><br />
 </ul>
@@ -98,26 +98,10 @@ office@ticket.kg</div></div>
       $("#prev").click(function(){
         owl.trigger('owl.prev');
       })
-
+      
       $('.seat').tooltip();
-
-      /*var tess = $('#test').attr('data-original-title');
-      alert(tess);*/
-
      }); 
           
     </script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-      /*var str = '<?php foreach ($seats as $seat) : ?>{"id_seat":"<?=$seat['id_seat'];?>","row":"<?=$seat['row'];?>","seat":"<?=$seat['seat'];?>","cost":"<?=$seat['cost'];?>"}<?php endforeach;?>';
-      var seats = JSON.parse(str);*/
-      }); 
-    </script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <script src="/js/respond.min.js"></script>
-    <![endif]-->
   </body>
 </html>

@@ -7,7 +7,7 @@
         </div>
       </div>
   </div>
-  <div id="footer">
+  <div id="footer" class="hidden-xs">
     <div id="wrapper" class="container">
   
     <div class="footer-top row">
@@ -45,7 +45,7 @@
       <div class="menu-footer col-sm-6 col-md-2"><div class="well">
 <ul class="footer_list">
 <li>Правила использования</li><br />
-<li><a href="#">Пользовательское соглашение</a></li><br />
+<li><a href="<?=base_url()?>agreement">Пользовательское соглашение</a></li><br />
 <li><a href="#">Публичная оферта</a></li><br />
 <li><a href="#">Политика конфиденциальности</a></li><br />
 </ul>
@@ -107,25 +107,39 @@ office@ticket.kg</div></div>
     </script>
     <script type="text/javascript">
       $(document).ready(function() {
+
       var str = '<?php echo json_encode($seats);?>';
       var data = $.parseJSON(str);
+
       var l = 0;
+      var user_seat = '<?php if(!empty($user_act_seat)){echo json_encode($user_act_seat);}?>';
+      <?php if ($this->ion_auth->logged_in()){
+      if(!empty($user_act_seat)){
+      echo 'var data2 = $.parseJSON(user_seat); var r = 0;';} } ?>
+
+      $('.seat').each(function (i) {
+          var att = $(this).attr('id');
+          var new_att = '<?=$page_id4?>-' + att;
+          $(this).attr('id',new_att);
+      });
+
       jQuery.each(data, function() {
       $("#" + data[l].target).removeClass('btn-default').addClass('btn-danger');
       l++;
-      <? if($this->ion_auth->logged_in()){$user = $this->ion_auth->user()->row(); echo $user->id;}?>
       });
+      <?php if ($this->ion_auth->logged_in()){
+        if(!empty($user_act_seat)){
+      echo 'jQuery.each(data2, function() {
+      $("#" + data2[r].target).removeClass("btn-danger").addClass("btn-success");
+      r++;
+      });';} } ?>
 
       var seatcost = 500;
-      $('div[id^="2-1-"]').attr('cost',seatcost);
+      $('div[id^="<?=$page_id4?>-"]').attr('data-cost',seatcost);
+
+      //$('.seat').text('');
 
       }); 
     </script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="/js/html5shiv.js"></script>
-    <script src="/js/respond.min.js"></script>
-    <![endif]-->
   </body>
 </html>

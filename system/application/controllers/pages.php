@@ -23,7 +23,7 @@ class Pages extends Controller {
        {
        $page = 'user_account';
        $data['main_info'] = $this->items_model->get_page($page);
-       
+       $data['menu_third'] = $this->items_model->get_menu_third();
        
        $user = $this->ion_auth->user()->row();
        $just_get = $user->id;
@@ -53,6 +53,7 @@ class Pages extends Controller {
        {       
        $page = 'userinfo';
        $data['main_info'] = $this->items_model->get_page($page);
+       $data['menu_third'] = $this->items_model->get_menu_third();
        //$data['won_count'] = $this->items_model->won_prizes();
        //$data['all_count'] = $this->items_model->all_count();
        //$data['account_count'] = $this->items_model->account_count();
@@ -100,12 +101,13 @@ class Pages extends Controller {
 	{
        $page = 'agreement';
        $data['main_info'] = $this->items_model->get_page($page);
-       $data['won_count'] = $this->items_model->won_prizes();
-       $data['all_count'] = $this->items_model->all_count();
-       $data['account_count'] = $this->items_model->account_count();
+       $data['menu_third'] = $this->items_model->get_menu_third();
+       $data['page_id'] = '';
+       //$data['all_count'] = $this->items_model->all_count();
+       //$data['account_count'] = $this->items_model->account_count();
        $data['auth_session'] = $this->items_model->auth_session();
        $name = 'sample';
-       $this->display_lib->simple($data,$name);        
+       $this->display_lib->main($data,$name);        
 	}
     
             public function rules()

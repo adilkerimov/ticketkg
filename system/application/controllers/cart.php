@@ -16,6 +16,7 @@ class Cart extends Controller {
 	{
        $data['items'] = $this->items_model->get_items();
        $data['menu_first'] = $this->items_model->get_menu_first();    
+       $data['menu_third'] = $this->items_model->get_menu_third();
     if($this->cart->contents())
     {   
     if (isset($_POST['add_button']))

@@ -44,7 +44,11 @@ $route['default_controller'] = "main";
 $route['item/(:num)'] = 'main/item/$1';
 $route['catalog/(:any)'] = 'main/catalog/$1';
 $route['view/(:any)'] = 'main/view/$1';
+$route['zavedenie/(:any)'] = 'main/zavedenie/$1';
+$route['controll/(:any)'] = 'main/controll/$1';
 
+
+$route['cart'] = 'main/cart';
 $route['login'] = 'auth/login';
 $route['logout'] = 'auth/logout';
 $route['forgot_password'] = 'auth/forgot_password';

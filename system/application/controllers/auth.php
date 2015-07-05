@@ -59,6 +59,8 @@ class Auth extends Controller {
 	function login()
 	{
 		$this->data['title'] = "Login";
+		$this->data['page_id'] = '';
+		$this->data['menu_third'] = $this->items_model->get_menu_third();
 
 		//validate form input
 		$this->form_validation->set_rules('identity', 'Identity', 'required');
@@ -251,6 +253,8 @@ class Auth extends Controller {
 	//forgot password
 	function forgot_password()
 	{
+		$this->data['menu_third'] = $this->items_model->get_menu_third();
+		$this->data['page_id'] = '';
 		$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required');
 		if ($this->form_validation->run() == false)
 		{
@@ -461,7 +465,8 @@ class Auth extends Controller {
 	function create_user()
 	{
 		$this->data['title'] = "Create User";
-
+		$this->data['menu_third'] = $this->items_model->get_menu_third();
+		$this->data['page_id'] = '';
 		/* if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
 			redirect('auth', 'refresh');

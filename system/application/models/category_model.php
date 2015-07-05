@@ -12,7 +12,7 @@ public $add_rules = array
     array
     (
       'field' => 'menu',
-      'label' => 'Наименование категории',
+      'label' => 'Наименование типа учреждения',
       'rules' => 'required'
     ),
     array
@@ -28,19 +28,13 @@ public $add_rules_pod = array
     array
     (
       'field' => 'menu',
-      'label' => 'Наименование категории',
+      'label' => 'Наименование типа учреждения',
       'rules' => 'required'
     ),
     array
     (
       'field' => 'link',
       'label' => 'Короткое имя на латинице',
-      'rules' => 'required'
-    ),
-    array
-    (
-      'field' => 'bind',
-      'label' => 'Связка с основной категорией',
       'rules' => 'required'
     )
 );
@@ -51,7 +45,7 @@ public $update_rules = array
     array
     (
       'field' => 'menu',
-      'label' => 'Наименование категории',
+      'label' => 'Наименование типа учреждения',
       'rules' => 'required'
     )
 );

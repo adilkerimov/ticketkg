@@ -17,16 +17,14 @@ class Adimin extends Controller {
 	{
        $user = $this->ion_auth->user()->row();
        $data['menu_first'] = $this->items_model->get_menu_admin();
-       $data['main_info'] = $this->category_model->get_all();
-       //$data['won_count'] = $this->category_model->won_prizes();
-       //$data['account_count'] = $this->category_model->account_count();
-       //$data['auth_session'] = $this->category_model->auth_session();
-       //$data['info'] = "Главная страница - Список розыгрышей призов";
-        $data['won_count'] = $this->category_model->won_prizes();
-        $data['all_count'] = $this->category_model->all_count();
-        $data['account_count'] = $this->category_model->account_count();
+       $data['menu_third'] = $this->items_model->get_menu_third();
+
+       //$data['main_info'] = $this->category_model->get_all();
+        //$data['won_count'] = $this->category_model->won_prizes();
+        //$data['all_count'] = $this->category_model->all_count();
+        //$data['account_count'] = $this->category_model->account_count();
         $data['auth_session'] = $this->category_model->auth_session();       
-        $data['all_user_prizes'] = $this->category_model->all_user_prizes();
+        //$data['all_user_prizes'] = $this->category_model->all_user_prizes();
        
        
         if (!$this->ion_auth->logged_in())
@@ -42,8 +40,8 @@ class Adimin extends Controller {
         else
         {
         $data['info'] = 'Главная страница Администратора';
-        $name = 'admin';
-        $this->display_lib->admin($data,$name); 
+        $name = 'admin/admin';
+        $this->display_lib->admin($data,$name);
         }
 	}
     

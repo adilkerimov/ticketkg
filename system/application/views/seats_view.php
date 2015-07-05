@@ -1,4 +1,4 @@
-	<div class="row">
+	<div class="row hidden-xs hidden-sm ">
 		<div class="col-md-12">
 			<?php 
 			$f_inst = $this->items_model->get_menu_link($page_id);
@@ -17,15 +17,43 @@
 			<div id="featured" class="col-md-12">
 				
 				<div class="row padding-top">
-				<p><?=$s_inst['menu'];?> (зрительный зал)</p>
-				<?php
-				if(isset($user_seat)){
-					echo "<p>Вы выбрали <span class='count'>".$u_seat_count."</span> билет(ов) на сумму <span class='sum'>".$u_seat_sum."</span> сом.</p>";
-				} 
-				
-				?>				
+					<div class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
+						<?=$s_inst['menu'];?> (зрительный зал)
+					</div>
+					<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+						<a href="<?=base_url()?>cart" class="btn right">Купить</a>	
+					</div>	
 				</div>
 			</div>
+			<div id="accordion" class="panel-group padding-top">
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse" style="cursor:pointer">
+      <div class="panel-title">
+      		  <?php
+				if(isset($user_seat)){
+					echo "Вы выбрали <span class='count'>".$u_seat_count."</span> билет(ов) на сумму <span class='sum'>".$u_seat_sum."</span> сом";
+				} 
+				?>
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse">
+                <img src="<?=base_url()?>img/arrow_down.png">
+
+              </a>
+      </div>
+    </div>
+    <div id="collapse" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="padding10">
+        	<?php $ticks = $this->items_model->get_user_tickets($page_id4); $i = 1;?>
+        	<p>Ваши места:</p>
+        	<?php if($ticks==true) {foreach ($ticks as $tick) : ?>
+        	<?php $parse = explode('-', $tick['target']); ?> 
+        	<?php echo $i; $i++; ?>.&nbsp;&nbsp;ряд: <?=$parse[2]?>, место: <?=$parse[3]?><br>
+        	<?php endforeach; }?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 			<div id="featured" class="col-md-12">
 
 			</div>
@@ -33,7 +61,8 @@
 		</div>
 	</div>
 	<br> 
-	
+	<div class="row col-sm-12 col-md-12 col-lg-12" style="overflow:auto; margin:0">
+	<div style="width:1000px;">
 	<div class="blank_aaa"></div>
 	<div class="blank_a"></div>
 	<div class="blank_c"></div>
@@ -49,7 +78,7 @@
 			<div class="blank_a"></div>
 			<div class="blank_bc"></div>
 			<div class="blank_b"></div>
-			<div id="2-1-0-1" class="btn btn-default seat" cost="300" data-html="true" data-toggle="tooltip" data-placement="top" title="<p>Ряд: 0 Место: 1</p><h5>500 сом</h5>">1</div>
+			<div id="2-1-0-1" class="btn btn-default seat" data-html="true" data-toggle="tooltip" data-placement="top" title="<p>Ряд: 0 Место: 1</p><h5>500 сом</h5>">1</div>
 			<div id="2-1-0-2" class="btn btn-default seat" data-html="true" data-toggle="tooltip" data-placement="top" title="<p>Ряд: 0 Место: 2</p><h5>500 сом</h5>">2</div>
 			<div id="2-1-0-3" class="btn btn-default seat" data-html="true" data-toggle="tooltip" data-placement="top" title="<p>Ряд: 0 Место: 3</p><h5>500 сом</h5>">3</div>
 			<div id="2-1-0-4" class="btn btn-default seat" data-html="true" data-toggle="tooltip" data-placement="top" title="<p>Ряд: 0 Место: 4</p><h5>500 сом</h5>">4</div>
@@ -883,7 +912,8 @@
 			<div id="2-2-12-34" class="btn btn-default seat" data-html="true" data-toggle="tooltip" data-placement="top" title="<p>Ряд: 12 Место: 34</p><h5>500 сом</h5>">34</div>
 		</div>
 	</div>
-	
+	</div>
+	</div>
 			
 	
 

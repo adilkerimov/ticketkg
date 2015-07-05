@@ -5,76 +5,100 @@ $(document).ready(function() {
     // Покупка доли Ticket.kg
 	$(document).on("click",'.seat',function(){
         var pid = $(this).attr('id');
-        var t_cost = $(this).attr('cost');
-        if ($(this).hasClass('btn-primary')) {
+        var t_cost = $(this).attr('data-cost');
+        var elem =  $(this);
+        if ($(this).hasClass('btn-primary')||$(this).hasClass('btn-success')) {
 
-        $(this).removeClass('btn-primary').addClass('btn-default');
+        elem.removeClass('btn-primary').removeClass('btn-success').addClass('btn-default');
         var conf="Вы действительно хотите удалить?";
           if(confirm(conf)){
           $.post(link + "main/abort_ticket", {id_item: pid},
              function(data){
               if(isNaN(data)){
+              elem.removeClass('btn-default').addClass('btn-primary');
               alert("Бронь по данному билету не может быть удалена."); 
               }
               else{
-              
+                var myinput=$('.sum');
+                var inival=parseFloat(myinput.text());
+                var cost = $('#'+pid).attr('data-cost');
+                var costval=parseFloat(cost);
+                var mycount=$('.count');
+                var inicount=parseFloat(mycount.text());
+
+                if(isNaN(inival)) inival=0;
+                var newval=inival-costval;
+                newval=parseFloat(Math.round(newval * 100) / 100).toFixed(0);
+                myinput.text(newval);
+
+                if(isNaN(inicount)) inicount=0;
+                var newcount=inicount-1;
+                mycount.text(newcount);
               }
-              //$.get(link + "main/show_my_share", function(cart){
-              //$("body").html(cart);
-              //});
              });
           }
         }
         else if ($(this).hasClass('btn-danger')) {
-        $(this).removeClass('btn-danger').addClass('btn-default');
+        elem.removeClass('btn-danger').addClass('btn-default');
         var conf="Вы действительно хотите удалить?";
           if(confirm(conf)){
           $.post(link + "main/abort_ticket", {id_item: pid},
              function(data){
               if(isNaN(data)){
+              elem.removeClass('btn-default').addClass('btn-danger');
               alert(data); 
               }
               else{
-              //alert("Что то не то"); 
+                var myinput=$('.sum');
+                var inival=parseFloat(myinput.text());
+                var cost = $('#'+pid).attr('data-cost');
+                var costval=parseFloat(cost);
+                var mycount=$('.count');
+                var inicount=parseFloat(mycount.text());
+
+                if(isNaN(inival)) inival=0;
+                var newval=inival-costval;
+                newval=parseFloat(Math.round(newval * 100) / 100).toFixed(0);
+                myinput.text(newval);
+
+                if(isNaN(inicount)) inicount=0;
+                var newcount=inicount-1;
+                mycount.text(newcount);
               }
-              //$.get(link + "main/show_my_share", function(cart){
-              //$("body").html(cart);
-              //});
              });
           }
         }
         else{
         //var pid = $(this).attr('id');
-        $(this).removeClass('btn-default').addClass('btn-primary');
+        elem.removeClass('btn-default').addClass('btn-primary');
+        
         //var ticks = $('#amount'+pid).val();
         //if(confirm(conf)){
           $.post(link + "main/buy_ticket", {id_item: pid, cost:t_cost},
              function(data){
               if(isNaN(data)){
+              elem.removeClass('btn-primary').addClass('btn-default');
               alert(data); 
               }
               else{
                 var myinput=$('.sum');
-
                 var inival=parseFloat(myinput.text());
-
-
-                var cost = $('#'+pid).attr('cost');
+                var cost = $('#'+pid).attr('data-cost');
                 var costval=parseFloat(cost);
+                var mycount=$('.count');
+                var inicount=parseFloat(mycount.text());
 
                 if(isNaN(inival)) inival=0;
                 var newval=inival+costval;
                 newval=parseFloat(Math.round(newval * 100) / 100).toFixed(0);
                 myinput.text(newval);
 
+                if(isNaN(inicount)) inicount=0;
+                var newcount=inicount+1;
+                mycount.text(newcount);
 
               }
-              
-              //$.get(link + "main/show_my_share", function(cart){
-              //$("body").html(cart);
-              //});
-             });
-        //}
+            });
         };
     });	
     
@@ -118,7 +142,7 @@ $(document).ready(function() {
     
 
   });
-  
+
 });
 
 

@@ -1,6 +1,7 @@
 <!-- CONTAINER -->
-<div id="container">
-<div id="rightcolumn">
+<div id="content" class="row">
+<div id="featured" class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+
 <div id="rightnav"  class="droplist">
 <div id="rightnavhead">
 <p class="strong"><img src="/img/list.png" width="8"/>&nbsp;&nbsp;АДМИНИСТРИРОВАНИЕ</p>
@@ -26,20 +27,24 @@
 <?php endforeach; ?>
 </ul>
 </div>
+
 </div>
+
+<div id="sidebar" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+
 <div id="content_block">
 <div id="center">
 <br />
-<p class="strong">Добавить категорию</p>
-<?=form_error('menu');?>
-<?=form_error('link');?>
+<h2>Добавить тип учреждения</h2>
+<p><?=form_error('menu');?></p>
+<p><?=form_error('link');?></p>
 <?php echo form_open("category/add_category");?><br />
-<p style="float: left; clear: both; margin: 15px 0 15px 0;">
-    <?php echo form_input($menu);?> Наименование категории<br /><br />
+<p style="float: left; clear: both; margin: 5px 0 15px 0;">
+    <?php echo form_input($menu);?> Наименование типа учреждения<br /><br />
     <?php echo form_input($link);?> Короткое имя на латинице<br />
 </p><br /><br />
 
-<p style="float: left; clear: both; margin: 15px 0 15px 0;"><?php $attributes = 'class = "buy radius"'; echo form_submit('my_button', 'Добавить категорию', $attributes);?></p>
+<p style="float: left; clear: both; margin: 15px 0 15px 0;"><?php $attributes = 'class = "buy radius"'; echo form_submit('my_button', 'Добавить', $attributes);?></p>
 
 
 <?php echo form_close();?>
@@ -48,4 +53,7 @@
 </div>
 </div>
 </div>
-<div class="clear"></div>
+
+
+</div>
+</div>

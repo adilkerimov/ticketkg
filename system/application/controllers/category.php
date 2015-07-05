@@ -65,12 +65,13 @@ class Category extends Controller {
         else
         {
         $data['menu_first'] = $this->items_model->get_menu_admin();
+        $data['menu_third'] = $this->items_model->get_menu_third();
             if (isset($_POST['my_button']))
             {
                 $this->form_validation->set_rules($this->category_model->add_rules);  
                 if ($this->form_validation->run() == TRUE)
                 {
-                    $data['info'] = '<span class="success radius">Категория успешно добавлена</span>';
+                    $data['info'] = '<span class="success radius">Тип учреждения успешно добавлен</span>';
                     $name = 'info_admin';
                     $this->category_model->add_menu();
                     $this->display_lib->admin($data,$name); 
@@ -87,7 +88,7 @@ class Category extends Controller {
 				    'type'  => 'text',
 				    'value' => $this->form_validation->set_value('link'),
 			         );
-                    $data['info'] = '<span class="error radius">Вы не ввели наименование категории</span>';
+                    $data['info'] = '<span class="error radius">Вы не ввели наименование типа учреждения</span>';
                     $name = 'category/add_category';
                     $this->display_lib->admin($data,$name); 
                 }
@@ -133,12 +134,13 @@ class Category extends Controller {
         else
         {
         $data['menu_first'] = $this->items_model->get_menu_admin();
+        $data['menu_third'] = $this->items_model->get_menu_third();
             if (isset($_POST['my_button']))
             {
                 $this->form_validation->set_rules($this->category_model->add_rules_pod);  
                 if ($this->form_validation->run() == TRUE)
                 {
-                    $data['info'] = '<span class="success radius">Подкатегория успешно добавлена</span>';
+                    $data['info'] = '<span class="success radius">Учреждение успешно добавлено</span>';
                     $name = 'info_admin';
                     $this->category_model->add_second_menu();
                     $this->display_lib->admin($data,$name); 
@@ -155,7 +157,7 @@ class Category extends Controller {
 				    'type'  => 'text',
 				    'value' => $this->form_validation->set_value('link'),
 			         );
-                    $data['info'] = '<span class="error radius">Вы не ввели наименование подкатегории</span>';
+                    $data['info'] = '<span class="error radius">Вы не ввели наименование учреждения</span>';
                     $name = 'category/add_second_menu';
                     $this->display_lib->admin($data,$name); 
                 }
@@ -201,13 +203,13 @@ public function add_third_menu()
         else
         {
         $data['menu_first'] = $this->items_model->get_menu_admin();
-            
+        $data['menu_third'] = $this->items_model->get_menu_third();    
             if (isset($_POST['my_button']))
             {
                 $this->form_validation->set_rules($this->category_model->add_rules_pod);  
                 if ($this->form_validation->run() == TRUE)
                 {
-                    $data['info'] = '<span class="success radius">Нижняя категория успешно добавлена</span>';
+                    $data['info'] = '<span class="success radius">Жанр успешно добавлен</span>';
                     $name = 'info_admin';
                     $this->category_model->add_third_menu();
                     $this->display_lib->admin($data,$name); 
@@ -224,7 +226,7 @@ public function add_third_menu()
 				    'type'  => 'text',
 				    'value' => $this->form_validation->set_value('link'),
 			         );
-                    $data['info'] = '<span class="error radius">Вы не ввели наименование нижней категории</span>';
+                    $data['info'] = '<span class="error radius">Вы не ввели наименование жанра</span>';
                     $name = 'category/add_third_menu';
                     $this->display_lib->admin($data,$name); 
                 }
